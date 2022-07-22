@@ -64,6 +64,7 @@
 - As a user I would like a dedicated page where I can view all the products I wish to purpose all in one location.
 
 ## Domain Modeling
+![image](./assests/Domain%20Modeling.png)
 
 ## Database Schema Diagram
 ![](./assests/Database%20Schema%20Diagram.png)
