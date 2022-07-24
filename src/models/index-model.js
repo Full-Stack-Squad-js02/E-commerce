@@ -57,7 +57,7 @@ productTabel.belongsTo(userTabel, {
 
 // User has many orders
 userTabel.hasMany(orderTabel, {
-    foreignKey: "user_Id",
+    foreignKey: "user_id",
     sourceKey: "id"
 });
 
@@ -68,7 +68,7 @@ orderTabel.belongsTo(userTabel, {
 
 // User has many ratings
 userTabel.hasMany(ratingTabel, {
-    foreignKey: "user_Id",
+    foreignKey: "user_id",
     sourceKey: "id"
 });
 
@@ -126,13 +126,13 @@ ratingTabel.belongsTo(productTabel, {
 // Cart many to many orders
 
 cartTabel.belongsToMany(orderTabel, {
-//   through: "tutorial_tag",
-//   as: "tags",
-  foreignKey: "order_id",
+  through: "order_cart",
+  as: "orderTabel",
+  foreignKey: "cart_id",
 });
 orderTabel.belongsToMany(cartTabel, {
-//   through: "tutorial_tag",
-//   as: "tutorials",
+  through: "odrer_cart",
+  as: "cartTabel",
   foreignKey: "order_id",
 });
 

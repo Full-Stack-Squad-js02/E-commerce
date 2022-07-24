@@ -1,7 +1,7 @@
 'use strict'
 
 const productModel = (sequelize, DataType) =>
-sequelize.define('Product', {
+sequelize.define('Products', {
     title: {
         type: DataType.STRING,
         required: true
@@ -11,7 +11,7 @@ sequelize.define('Product', {
 
     },
     image:{
-        type: DataType.IMAGE,
+        type: DataType.STRING,
         required : true
     },
     price: {
@@ -23,15 +23,15 @@ sequelize.define('Product', {
         required: true
     },
     category: {
-        type: DataType.ENUM(electronics, fashion, car, others),
+        type: DataType.ENUM('electronics', 'fashion', 'car', 'others'),
         required: true
        
     },
-    card_id: {
+    // foreign key
+    cart_id: {
         type: DataType.INTEGER,
         required: true
     },
-    // foreign key
     user_id: {
         type: DataType.INTEGER,
         required: true
