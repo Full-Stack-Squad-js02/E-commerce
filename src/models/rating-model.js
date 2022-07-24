@@ -1,7 +1,7 @@
 'use strict'
 
 const ratingModel = (sequelize, DataType) =>
-sequelize.define('rating', {
+sequelize.define('ratings', {
     name: {
         type: DataType.STRING,
         required: true

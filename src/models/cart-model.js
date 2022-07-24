@@ -1,7 +1,7 @@
 "use strict";
 
 const cartModel = (sequelize, DataTypes) =>
-    sequelize.define("cart", {
+    sequelize.define("carts", {
         // id: {
         //     type: DataTypes.INTEGER,
         //     required: true,

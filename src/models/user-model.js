@@ -34,7 +34,7 @@ const userModel = (sequelize, DataTypes) => {
             }
         },
         role: {
-            type: DataTypes.ENUM('customer', 'vinder', 'admin'),
+            type: DataTypes.ENUM('customer','vinder', 'admin'),
             required: true,
             defaultValue: 'customer'
         },
