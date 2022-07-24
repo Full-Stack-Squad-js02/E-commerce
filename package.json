@@ -4,7 +4,9 @@
   "description": "## Full-Stack-Squad",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NOD_ENV=production node index.js",
+    "test": "NODE_ENV=test jest --coverage",
+    "dev": "NOD_ENV=development nodemon index.js"
   },
   "repository": {
     "type": "git",
