@@ -15,6 +15,7 @@ sequelize.define('rating', {
         type: DataType.INTEGER,
         required: true
     },
+    // foreign key
     product_id: {
         type: DataType.INTEGER,
         required: true

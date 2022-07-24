@@ -27,6 +27,11 @@ sequelize.define('Product', {
         required: true
        
     },
+    card_id: {
+        type: DataType.INTEGER,
+        required: true
+    },
+    // foreign key
     user_id: {
         type: DataType.INTEGER,
         required: true
