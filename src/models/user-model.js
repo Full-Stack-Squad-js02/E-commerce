@@ -1,7 +1,7 @@
 'use strict';
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const sequelize = require('sequelize');
+// const sequelize = require('sequelize');
 const secret = process.env.SECRET;
 
 const userModel = (sequelize, DataTypes) => {
