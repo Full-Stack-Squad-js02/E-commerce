@@ -9,15 +9,15 @@ const userModel = (sequelize, DataTypes) => {
         username: {
             type: DataTypes.STRING,
             required: true,
+        },
+        email: {
+            type: DataTypes.STRING,
+            required: true,
             validate: {
                 isEmail: true
             }
         },
-        email: {
-            type: DataTypes.STRING,
-            required: true
-        },
-        phoneNumber: {
+        phonenumber: {
             type: DataTypes.INTEGER,
             required: true
         },
@@ -65,6 +65,7 @@ const userModel = (sequelize, DataTypes) => {
         }
     });
     model.authenticateBasic = async function (username, password) {
+        console.log('00000000000000');
         const user = await this.findOne({
             where: {
                 username: username
@@ -79,7 +80,7 @@ const userModel = (sequelize, DataTypes) => {
     };
     model.authenticateToken = async function (token) {
         try {
-            const parsedToken = jwt.verify(token, SECRET);
+            const parsedToken = jwt.verify(token, secret);
             const user = await this.findOne({
                 where: {
                     username: parsedToken.username

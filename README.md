@@ -71,10 +71,7 @@
 
 ## Database Schema Diagram
 
+![](./assests/DB-Diagram.png)
 
-![](./assests/Database_Schema_Diagram.png.png)
-
-
-![](./assests/Database_Schema_Diagram.png.png)
 
 ## [Team Agreement](./Team-Agreement.md)

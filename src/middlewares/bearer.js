@@ -17,9 +17,6 @@ module.exports = async (req, res, next) => {
 
   }
 
- 
-
-
    catch (e) {
     console.log('Error inside bearer auth middleware/catch');
     _authError();

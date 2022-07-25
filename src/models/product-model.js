@@ -37,5 +37,8 @@ const productModel = (sequelize, DataType) =>
             type: DataType.INTEGER,
             required: true
         },
+        wishlist_id: {
+            type: DataType.INTEGER,
+        },
     });
 module.exports = productModel;
