@@ -11,6 +11,8 @@ const orderModel = require('./order-model');
 const cartModel = require('./cart-model');
 const ratingModel = require('./rating-model');
 const userModel = require('./user-model');
+const catagoryModel = require('./category-model');
+const typeModel = require('./type-model');
 const Collection = require('./data-collection');
 
 const POSTGRES_URI = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.DATABASE_URL;
@@ -34,15 +36,19 @@ const productTabel = productModel(sequelize, DataTypes);
 const orderTabel = orderModel(sequelize, DataTypes);
 const cartTabel = cartModel(sequelize, DataTypes);
 const ratingTabel = ratingModel(sequelize, DataTypes);
+const catagoryTabel = catagoryModel(sequelize, DataTypes);
+const typeTabel = typeModel(sequelize, DataTypes);
 const userTabel = userModel(sequelize, DataTypes);
 
 const productCollection = new Collection(productTabel);
 const orderCollection = new Collection(orderTabel);
 const cartCollection = new Collection(cartTabel);
 const ratingCollection = new Collection(ratingTabel);
+const catagoryCollection = new Collection(catagoryTabel);
+const typeCollection = new Collection(typeTabel);
 const userCollection = new Collection(userTabel);
 
-// User RealtionShip:
+//RealtionShip:
 
 // User has many products:
 userTabel.hasMany(productTabel, {
@@ -136,11 +142,35 @@ orderTabel.belongsToMany(cartTabel, {
   foreignKey: "order_id",
 });
 
+// Catagory has many products:
+catagoryTabel.hasMany(productTabel, {
+    foreignKey: "catagory_id",
+    sourceKey: "id"
+});
+
+productTabel.belongsTo(catagoryTabel, {
+    foreignKey: "catagory_id",
+    targetKey: "id",
+});
+
+// Catagory has many types:
+catagoryTabel.hasMany(typeTabel, {
+    foreignKey: "catagory_id",
+    sourceKey: "id"
+});
+
+typeTabel.belongsTo(catagoryTabel, {
+    foreignKey: "catagory_id",
+    targetKey: "id",
+});
+
 module.exports = {
     db: sequelize,
     product: productCollection,
     order: orderCollection,
     cart: cartCollection,
     rating: ratingCollection,
+    catagory: catagoryCollection,
+    type: typeCollection,
     users: userCollection,
 }
