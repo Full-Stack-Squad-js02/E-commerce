@@ -33,10 +33,13 @@ const userModel = (sequelize, DataTypes) => {
                 this.setDataValue('password', hash);
             }
         },
+        adress: {
+            type: DataTypes.STRING,
+        },
         role: {
-            type: DataTypes.ENUM('customer','vinder', 'admin'),
+            type: DataTypes.ENUM('user', 'admin'),
             required: true,
-            defaultValue: 'customer'
+            defaultValue: 'user'
         },
         token: {
             type: DataTypes.VIRTUAL,
@@ -54,15 +57,14 @@ const userModel = (sequelize, DataTypes) => {
             type: DataTypes.VIRTUAL,
             get() {
                 const acl = {
-                    customer: ['read'],
-                    vinder: ['read', 'create', 'update', 'delete'],
+                    user: ['read', 'create', 'update', 'delete'],
                     admin: ['read', 'create', 'update', 'delete']
                 };
                 return acl[this.role];
             }
         }
     });
-        model.authenticateBasic = async function (username, password) {
+    model.authenticateBasic = async function (username, password) {
         const user = await this.findOne({
             where: {
                 username: username
@@ -91,7 +93,7 @@ const userModel = (sequelize, DataTypes) => {
             throw new Error(e.message)
         }
     };
-     return model;
+    return model;
 }
 
 module.exports = userModel;

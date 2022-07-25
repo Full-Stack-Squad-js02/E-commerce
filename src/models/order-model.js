@@ -11,8 +11,17 @@ const orderModel = (sequelize, DataTypes) =>
             required: true,
         },
         status: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING,
             required: true,
+        },
+        adress: {
+            type: DataTypes.STRING,
+        },
+        payment_method: {
+            type: DataTypes.STRING,
+        },
+        total_price: {
+            type: DataTypes.STRING,
         },
         // foreign key
         order_id: {
