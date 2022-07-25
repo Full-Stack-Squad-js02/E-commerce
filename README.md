@@ -68,7 +68,7 @@
 ![image](./assests/Domain%20Modeling.png)
 
 ## Database Schema Diagram
-![](./assests/Database_Schema_Diagram.png.png)
+![](./assests/DB-Diagram.png)
 
 
 ## [Team Agreement](./Team-Agreement.md)
