@@ -1,18 +1,23 @@
 'use strict';
 const {
-    users,
-    product,
-    order,
-    cart,
-    rating,
+  users,
+  product,
+  order,
+  cart,
+  rating,
+  catagory,
+  type,
+  massage,
+  wishlist,
+  shipping,
 } = require('../models/index-model');
 
- function homePage(req, res) {
+function homePage(req, res) {
   res.status(200).send('SOOQNA E-COMMERCE');
- }
+}
 
 
- //Auth
+//Auth
 
 async function handleSignup(req, res, next) {
   try {
@@ -23,7 +28,7 @@ async function handleSignup(req, res, next) {
     };
     res.status(201).json(output);
   } catch (e) {
-    console.error('Error in siginUp function',e);
+    console.error('Error in siginUp function', e);
     next(e.message);
   }
 }
@@ -52,10 +57,10 @@ async function handleSignin(req, res, next) {
 }
 
 module.exports = {
-    //API
-    homePage,
-    //AUTH
-    handleSignup,
-    handleGetUsers,
-    handleSignin,
+  //API
+  homePage,
+  //AUTH
+  handleSignup,
+  handleGetUsers,
+  handleSignin,
 }

@@ -24,11 +24,7 @@ const orderModel = (sequelize, DataTypes) =>
             type: DataTypes.STRING,
         },
         // foreign key
-        order_id: {
-            type: DataTypes.INTEGER,
-            required: true,
-        },
-        product_id: {
+         product_id: {
             type: DataTypes.INTEGER,
             required: true,
         },
