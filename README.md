@@ -75,5 +75,3 @@
 
 
 ## [Team Agreement](./Team-Agreement.md)
-
-## Ahmad
