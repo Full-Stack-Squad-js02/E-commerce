@@ -24,7 +24,10 @@
 
 ## Wireframes:
 
-![](./assests/e-commerce-wireframes.jpg)
+|                                           Pages                                            |                                    Pages                                    |
+| :----------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
+|      ![Home Page](./assests/Home%20Page.png)![My Product](./assests/My%20Product.png)      |     ![Sign In](./assests/Sign-In.png) ![Sign Up](./assests/Sign-Up.png)     |
+| ![Add Product](./assests/Add-Product.png)![Origin Product](./assests/Origin%20Product.png) | ![My Cart](./assests/My%20Cart.png) ![My Orders](./assests/My%20Orders.png) |
 
 # User Stories and Tasks
 
@@ -41,7 +44,6 @@
 - As an admin I would like add and save a new category so that I can expand my product lines
 
 - As an admin I would like to have a dashboard where I can see a list of the users.
-
 
 ## User Site
 
@@ -63,11 +65,12 @@
 
 - As a user I would like to check my sales, status, and profit.
 
-
 ## Domain Modeling
+
 ![image](./assests/Domain%20Modeling.png)
 
 ## Database Schema Diagram
+
 ![](./assests/Database_Schema_Diagram.png.png)
 
 
