@@ -13,9 +13,11 @@ const {
     //AUTH
     handleSignup,
     handleGetUsers,
+    handleSignin,
 
 } = require('./routes-functions');
 
 router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
+router.post('/signin', basicAuth, handleSignin);

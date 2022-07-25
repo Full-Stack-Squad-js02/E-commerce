@@ -39,10 +39,23 @@ async function handleGetUsers(req, res, next) {
   }
 }
 
+async function handleSignin(req, res, next) {
+  try {
+    const user = {
+      user: req.user,
+      token: req.user.token
+    };
+    res.status(200).json(user);
+  } catch (e) {
+    next(e.message);
+  }
+}
+
 module.exports = {
     //API
     homePage,
     //AUTH
     handleSignup,
     handleGetUsers,
+    handleSignin,
 }
