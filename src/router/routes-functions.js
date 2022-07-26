@@ -17,6 +17,56 @@ function homePage(req, res) {
 }
 
 
+// APT
+
+//Products Routes Functions:
+
+async function getAllProducts(req, res) {
+  const id = req.params.id;
+  let allRecords = await  product.getAll(id);
+  res.status(200).json(allRecords);
+}
+
+// async function handleGetOne(req, res) {
+//   const id = req.params.id;
+//   // console.log(id);
+//   let theRecord = await req.model.get(id)
+//   res.status(200).json(theRecord);
+// }
+
+async function createProduct(req, res) {
+  let id = req.user.id;
+  let obj = req.body;
+  obj.user_id = id;
+  let newRecord = await product.create(obj);
+  res.status(201).json(newRecord);
+}
+
+async function updateProduct(req, res) {
+  const id = req.params.id;
+  const obj = req.body;
+  let updatedRecord = await req.model.update(id, obj)
+  res.status(200).json(updatedRecord);
+}
+
+async function DeleteProduct(req, res) {
+  let id = req.params.id;
+  let deletedRecord = await req.model.delete(id);
+  // console.log('ddddddddddddd',deletedRecord);
+  res.status(204).json({});
+  // res.status(204).send('Record is deleted Successfully')
+}
+
+async function DeleteAllProduct(req, res) {
+  let id = req.params.id;
+  let deletedRecord = await req.model.deleteAll();
+  // console.log('ddddddddddddd',deletedRecord);
+  res.status(204).json({});
+  // res.status(204).send('Record is deleted Successfully')
+}
+
+
+
 //Auth
 
 async function handleSignup(req, res, next) {
@@ -59,6 +109,14 @@ async function handleSignin(req, res, next) {
 module.exports = {
   //API
   homePage,
+
+  // Products Functions:
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  DeleteProduct,
+  DeleteAllProduct,
+
   //AUTH
   handleSignup,
   handleGetUsers,

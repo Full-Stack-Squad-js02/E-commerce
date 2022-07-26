@@ -27,15 +27,15 @@ const productModel = (sequelize, DataType) =>
         // foreign key
         cart_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         },
         user_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         },
         category_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         },
         wishlist_id: {
             type: DataType.INTEGER,

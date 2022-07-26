@@ -18,7 +18,7 @@ const userModel = (sequelize, DataTypes) => {
             }
         },
         phonenumber: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             required: true
         },
         password: {
