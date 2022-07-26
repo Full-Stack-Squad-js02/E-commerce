@@ -6,11 +6,11 @@ class DataCollection {
         this.model = model;
     }
     get(id) {
-        if (id) {
-            return this.model.findOne({where:{id:id}});
-        } else {
-            return this.model.findAll({});
-        }
+        return this.model.findOne({ where: { id: id } });
+    }
+
+    getAll(id) {
+        return this.model.findAll({ where: { user_id: id } });
     }
 
     create(record) {
@@ -18,12 +18,17 @@ class DataCollection {
     }
 
     update(id, data) {
-        return this.model.findOne({where: {id:id}})
+        return this.model.findOne({ where: { id: id } })
             .then(record => record.update(data));
     }
 
-    delete(id) {
-        return this.model.destroy({where: { id : id  } });
+    delete(id, id2) {
+        return this.model.destroy({
+            where: {
+                id: id,
+                user_id: id2
+            }
+        });
     }
 }
 

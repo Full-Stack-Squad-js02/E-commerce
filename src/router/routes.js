@@ -14,6 +14,9 @@ const {
     handleSignup,
     handleGetUsers,
     handleSignin,
+    handleCreateCart,
+    handleGetAllCart,
+    handleDeleteCart,
 
 } = require('./routes-functions');
 
@@ -21,5 +24,10 @@ router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
+router.post('/cart', bearerAuth, handleCreateCart);
+router.get('/cart/:id', bearerAuth, handleGetAllCart);
+router.delete('/cart/:id', bearerAuth, handleDeleteCart);
+
+
 
 module.exports = router;
