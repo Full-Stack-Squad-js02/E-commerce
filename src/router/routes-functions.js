@@ -127,47 +127,54 @@ async function handleSignin(req, res, next) {
   }
 }
 
-//Create orders 
+//.....................ORDER...............................
 
-async function handleCreateorder(req, res) {
+
+//Create orders 
+async function Createorder(req, res) {
   let obj = req.body;
   obj.user_id = req.user.id;
   let newRecord = await order.create(obj);
   res.status(201).json(newRecord);
 }
+
 //UPDET orders
-async function handleUpdateorder(req, res) {
+async function Updateorder(req, res) {
   const id = req.params.id;
   const id2 = req.user.id;
   const obj = req.body;
   obj.user_id = id2;
   let updatedRecord = await order.update(id,obj,id2)
-  res.status(200).json(updatedRecord);
 
   if (updatedRecord) {
-    if (updatedRecord[0] != 0) {
-      res.status(201).json(updatedRecord[1]);
+      res.status(201).json(updatedRecord);
     } else {
-      res.status(403).send(`There is no model with this id: ${id}`);
+      res.status(403).send(`Access Denid`);
     }
-  } else {
-
-    res.status(403).send(`You can not update posts of other users !!`);
   }
-}
-
 
 //DELETE orders
-
-async function handleDeleteorder(req, res) {
-  let id = req.params.id;
-  const id2 = req.user.id;
-  let deletedRecord = await order.delete(id, id2);
-  if (deletedRecord == 0){
-    res.status(200).send("Access denied");
+async function Deleteorder(req, res) {
+  const id = req.user.id;
+  let deletedRecord = await order.deleteAll(id);
+   if (deletedRecord == 0) {
+    res.status(403).send("Access denied");
   }
-  res.status(200).json(deletedRecord);
+  res.status(204).json(deletedRecord);
+  // res.status(204).send('Record is deleted Successfully')
 }
+
+async function getAllOrder(req, res) {
+  const id = req.params.id;
+  let allRecords = await order.getAll(id);
+  res.status(200).json(allRecords);
+}
+
+//..........End Order.....................
+
+
+
+
 
 
 
@@ -214,13 +221,16 @@ module.exports = {
   deleteProduct,
   deleteAllProduct,
 
-  //AUTH
+
   handleSignup,
   handleGetUsers,
   handleSignin,
-  handleCreateorder,
-  handleUpdateorder,
-  handleDeleteorder,
+
+  //Handle Order:
+  Createorder,
+  Updateorder,
+  Deleteorder,
+  getAllOrder,
   //Handle Cart :
   createCart,
   getAllCart,
