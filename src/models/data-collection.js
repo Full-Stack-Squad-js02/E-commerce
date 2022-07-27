@@ -25,27 +25,44 @@ class DataCollection {
         return this.model.create(record);
     }
 
-    update(id, data) {
+    update(id, data, id2) {
         return this.model.findOne({
                 where: {
+                    user_id: id2,
                     id: id
                 }
             })
-            .then(record => record.update(data));
+            .then(record => {
+                console.log(record)
+                if (record) {
+                    record.update(data);
+                    return record;
+                } else {
+                    console.log('Access Denid');
+                }
+            });
     }
 
-    delete(id) {
+    deleteAll(id) {
         return this.model.destroy({
+            truncate: {
+                cascade: true
+            },
             where: {
-                id: id
+                user_id: id
             }
         });
     }
 
-    deleteAll() {
-        return this.model.destroy({
-            truncate: true
-        });
+    delete(id, id2) {
+        if (id2) { //extra
+            return this.model.destroy({
+                where: {
+                    id: id,
+                    user_id: id2
+                }
+            });
+        }
     }
 }
 

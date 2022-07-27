@@ -13,8 +13,14 @@ const {
     getAllProducts,
     createProduct,
     updateProduct,
-    DeleteProduct,
-    DeleteAllProduct,
+    deleteProduct,
+    deleteAllProduct,
+
+    //Cart
+    createCart,
+    getAllCart,
+    deleteAllCart,
+
     //AUTH
     handleSignup,
     handleGetUsers,
@@ -26,11 +32,16 @@ router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
+router.post('/cart', bearerAuth, createCart);
+router.get('/cart/:id', bearerAuth, getAllCart);
+router.delete('/cart/:id', bearerAuth, deleteAllCart);
+
+
 
 router.post('/product', bearerAuth, createProduct);
 router.get('/product/:id', bearerAuth, getAllProducts);
-router.get('/product/:id', bearerAuth, updateProduct);//incomlete
-router.get('/product/:id', bearerAuth, DeleteProduct);//incomlete
-router.get('/product', bearerAuth, DeleteAllProduct);
+router.put('/product/:id', bearerAuth, updateProduct); //incomlete
+router.delete('/product/:id', bearerAuth, deleteProduct); //incomlete
+router.delete('/product', bearerAuth, deleteAllProduct);
 
 module.exports = router;
