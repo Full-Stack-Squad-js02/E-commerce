@@ -5,11 +5,11 @@ sequelize.define('wishlists', {
    
     product_id: {
         type: DataType.INTEGER,
-        required: true
+        // required: true
     },
     user_id: {
         type: DataType.INTEGER,
-        required: true
+        // required: true
     }
 })
 module.exports = wishListModel;

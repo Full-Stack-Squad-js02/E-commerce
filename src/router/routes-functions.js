@@ -1,5 +1,4 @@
 'use strict';
-const { response } = require('express');
 const {
   users,
   product,
@@ -19,6 +18,74 @@ const {
 function homePage(req, res) {
   res.status(200).send('SOOQNA E-COMMERCE');
 }
+
+
+// APT
+
+//Products Routes Functions:
+
+async function getAllProducts(req, res) {
+  const id = req.params.id;
+  let allRecords = await product.getAll(id);
+  res.status(200).json(allRecords);
+}
+
+// async function handleGetOne(req, res) {
+//   const id = req.params.id;
+//   // console.log(id);
+//   let theRecord = await req.model.get(id)
+//   res.status(200).json(theRecord);
+// }
+
+async function createProduct(req, res) {
+  const id = req.user.id;
+  let obj = req.body;
+  obj.user_id = id;
+  let newRecord = await product.create(obj);
+  res.status(201).json(newRecord);
+}
+
+async function updateProduct(req, res) {
+  const id = req.params.id;
+  const id2 = req.user.id;
+  const obj = req.body;
+  obj.user_id = id2;
+  let updatedRecord = await product.update(id,obj,id2)
+  // res.status(200).json(updatedRecord);
+
+  if (updatedRecord) {
+    console.log('uuuuuuuuuuuuuuu',updatedRecord);
+      res.status(201).json(updatedRecord);
+    } else {
+      res.status(403).send(`Access Denid`);
+    }
+  }
+
+async function deleteProduct(req, res) {
+  const id = req.params.id;
+  const id2 = req.user.id;
+  let deletedRecord = await product.delete(id, id2);
+  // console.log('ddddddddddddd',deletedRecord);
+  if (deletedRecord == 0) {
+    res.status(403).send("Access denied");
+  }
+  res.status(204).json(deletedRecord);
+  // res.status(204).send('Record is deleted Successfully')
+}
+
+
+async function deleteAllProduct(req, res) {
+  const id = req.user.id;
+  let deletedRecord = await product.deleteAll(id);
+  // console.log('ddddddddddddd',deletedRecord);
+   if (deletedRecord == 0) {
+    res.status(403).send("Access denied");
+  }
+  res.status(204).json(deletedRecord);
+  // res.status(204).send('Record is deleted Successfully')
+}
+
+
 
 
 //Auth
@@ -105,7 +172,7 @@ async function handleDeleteorder(req, res) {
 
 
 /*................Cart................*/
-async function handleCreateCart(req, res) {
+async function createCart(req, res) {
   let id = req.user.id;
   let obj = req.body;
   obj.user_id = id;
@@ -113,7 +180,7 @@ async function handleCreateCart(req, res) {
   res.status(201).json(newRecord);
 }
 
-async function handleGetAllCart(req, res) {
+async function getAllCart(req, res) {
   const id = req.params.id;
   const id2 = req.user.id;
   if (id == id2) {
@@ -124,21 +191,29 @@ async function handleGetAllCart(req, res) {
   }
 }
 
-async function handleDeleteCart(req, res) {
+async function deleteAllCart(req, res) {
   // make shore that just user can delete his own cart 
   let id = req.params.id;
   const id2 = req.user.id;
   let deletedRecord = await cart.delete(id, id2);
-  if (deletedRecord == 0){
-    res.status(200).send("Access denied");
+  if (deletedRecord == 0) {
+    res.status(403).send("Access denied");
   }
-  res.status(200).json(deletedRecord);
+  res.status(204).json(deletedRecord);
 }
 /*...............End Cart..............*/
 
 module.exports = {
   //API
   homePage,
+
+  // Products Functions:
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  deleteAllProduct,
+
   //AUTH
   handleSignup,
   handleGetUsers,
@@ -147,7 +222,7 @@ module.exports = {
   handleUpdateorder,
   handleDeleteorder,
   //Handle Cart :
-  handleCreateCart,
-  handleGetAllCart,
-  handleDeleteCart,
+  createCart,
+  getAllCart,
+  deleteAllCart,
 }

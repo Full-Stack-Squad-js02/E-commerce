@@ -8,7 +8,7 @@ const categoryModel = (sequelize, DataType) =>
         },
         type_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         },
     });
 module.exports = categoryModel;

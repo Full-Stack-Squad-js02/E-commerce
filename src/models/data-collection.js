@@ -6,30 +6,63 @@ class DataCollection {
         this.model = model;
     }
     get(id) {
-        return this.model.findOne({ where: { id: id } });
+        return this.model.findOne({
+            where: {
+                id: id
+            }
+        });
     }
 
     getAll(id) {
-        return this.model.findAll({ where: { user_id: id } });
+        return this.model.findAll({
+            where: {
+                user_id: id
+            }
+        });
     }
 
     create(record) {
         return this.model.create(record);
     }
 
-    update(id, data,id2) {
-        return this.model.findOne({where: {user_id:id2,id:id}})
-            .then(record =>{console.log(record)
-                 record.update(data)});
+    update(id, data, id2) {
+        return this.model.findOne({
+                where: {
+                    user_id: id2,
+                    id: id
+                }
+            })
+            .then(record => {
+                console.log(record)
+                if (record) {
+                    record.update(data);
+                    return record;
+                } else {
+                    console.log('Access Denid');
+                }
+            });
+    }
+
+    deleteAll(id) {
+        return this.model.destroy({
+            truncate: {
+                cascade: true
+            },
+            where: {
+                user_id: id
+            }
+        });
     }
 
     delete(id, id2) {
-        return this.model.destroy({
-            where: {
-                id: id,
-                user_id: id2
-            }
-        });
+        if (id2) { //extra
+            return this.model.destroy({
+                where: {
+                    id: id,
+                    user_id: id2
+                }
+            });
+        }
     }
 }
 
