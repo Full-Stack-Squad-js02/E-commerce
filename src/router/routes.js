@@ -9,6 +9,7 @@ const permissions = require('../middlewares/acl');
 
 const {
     homePage,
+    
     //Product
     getAllProducts,
     createProduct,
@@ -25,6 +26,12 @@ const {
     Createorder,
     Updateorder,
     Deleteorder,
+    // Wishlist
+    createWishlist,
+    getAllWishlists,
+    deleteWishlists,
+    deleteAllWishlists,
+
 
     //AUTH
     handleSignup,
@@ -48,7 +55,10 @@ router.get('/order/:id', bearerAuth, getAllOrder);
 router.post('/cart', bearerAuth, createCart);
 router.get('/cart/:id', bearerAuth, getAllCart);
 router.delete('/cart/:id', bearerAuth, deleteAllCart);
-
+router.get('/wishlist/:id', bearerAuth, getAllWishlists);
+router.delete('/wishlist/:id', bearerAuth, deleteWishlists);
+router.delete('/wishlist', bearerAuth, deleteAllWishlists);
+router.delete('/wishlist', bearerAuth, createWishlist);
 
 
 
