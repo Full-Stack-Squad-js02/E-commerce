@@ -31,7 +31,7 @@ router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
 router.post('/order',bearerAuth, permissions('read'), handleCreateorder);
 router.put('/order/:id',bearerAuth, permissions('update'), handleUpdateorder);
-router.delete('/order',bearerAuth, permissions('delete'), handleDeleteorder);
+router.delete('/order/:id',bearerAuth, permissions('delete'), handleDeleteorder);
 router.post('/cart', bearerAuth, handleCreateCart);
 router.get('/cart/:id', bearerAuth, handleGetAllCart);
 router.delete('/cart/:id', bearerAuth, handleDeleteCart);

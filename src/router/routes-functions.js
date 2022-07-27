@@ -90,15 +90,20 @@ async function handleUpdateorder(req, res) {
 }
 
 
-
-
 //DELETE orders
 
 async function handleDeleteorder(req, res) {
   let id = req.params.id;
-  let deletedRecord = await order.delete(id);
-  res.status(204).json(deletedRecord);
+  const id2 = req.user.id;
+  let deletedRecord = await order.delete(id, id2);
+  if (deletedRecord == 0){
+    res.status(200).send("Access denied");
+  }
+  res.status(200).json(deletedRecord);
 }
+
+
+
 /*................Cart................*/
 async function handleCreateCart(req, res) {
   let id = req.user.id;
