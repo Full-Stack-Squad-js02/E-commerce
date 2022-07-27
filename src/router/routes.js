@@ -27,7 +27,7 @@ router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
 router.post('/order',bearerAuth, permissions('read'), handleCreateorder);
-router.put('/order',bearerAuth, permissions('update'), handleUpdateorder);
+router.put('/order/:id',bearerAuth, permissions('update'), handleUpdateorder);
 router.delete('/order',bearerAuth, permissions('delete'), handleDeleteorder);
 
 module.exports = router;

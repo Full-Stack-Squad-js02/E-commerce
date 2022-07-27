@@ -9,7 +9,7 @@ const orderModel = (sequelize, DataTypes) =>
                   })           
         },
         quantity: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             required: true,
         },
         status: {

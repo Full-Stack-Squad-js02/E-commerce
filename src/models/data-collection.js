@@ -17,9 +17,10 @@ class DataCollection {
         return this.model.create(record);
     }
 
-    update(id, data) {
-        return this.model.findOne({where: {id:id}})
-            .then(record => record.update(data));
+    update(id, data,id2) {
+        return this.model.findOne({where: {user_id:id2,id:id}})
+            .then(record =>{console.log(record)
+                 record.update(data)});
     }
 
     delete(id) {

@@ -11,7 +11,9 @@ const {
   wishlist,
   shipping,
 } = require('../models/index-model');
-const { route } = require('./routes');
+const {
+  route
+} = require('./routes');
 
 function homePage(req, res) {
   res.status(200).send('SOOQNA E-COMMERCE');
@@ -68,17 +70,33 @@ async function handleCreateorder(req, res) {
 //UPDET orders
 async function handleUpdateorder(req, res) {
   const id = req.params.id;
+  const id2 = req.user.id;
   const obj = req.body;
-  obj.user_id = req.user.id;
-  let updatedRecord = await req.order.update(id, obj)
+  obj.user_id = id2;
+  let updatedRecord = await order.update(id,obj,id2)
   res.status(200).json(updatedRecord);
+
+  if (updatedRecord) {
+    if (updatedRecord[0] != 0) {
+      res.status(201).json(updatedRecord[1]);
+    } else {
+      res.status(403).send(`There is no model with this id: ${id}`);
+    }
+  } else {
+
+    res.status(403).send(`You can not update posts of other users !!`);
+  }
 }
+
+
+
+
 //DELETE orders
 
 async function handleDeleteorder(req, res) {
   let id = req.params.id;
-  let deletedRecord = await req.model.delete(id);
-  res.status(204).json({});
+  let deletedRecord = await order.delete(id);
+  res.status(204).json(deletedRecord);
 }
 
 module.exports = {
