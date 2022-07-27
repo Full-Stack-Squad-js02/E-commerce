@@ -8,9 +8,9 @@ module.exports = async (req, res, next) => {
      if (!req.headers.authorization) { _authError() }
      
      const token = req.headers.authorization.split(' ').pop();
-     console.log('token',token);
+    //  console.log('token',token);
      const validUser = await users.authenticateToken(token);
-     console.log('validUser',validUser);
+    //  console.log('validUser',validUser);
     req.user = validUser;
     req.token = validUser.token;
     next();

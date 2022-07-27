@@ -2,10 +2,6 @@
 
 const cartModel = (sequelize, DataTypes) =>
     sequelize.define("carts", {
-        // id: {
-        //     type: DataTypes.INTEGER,
-        //     required: true,
-        // },
         price: {
             type: DataTypes.INTEGER,
             required: true,
@@ -17,15 +13,15 @@ const cartModel = (sequelize, DataTypes) =>
         // foreign key
         user_id: {
             type: DataTypes.INTEGER,
-            required: true,
+            // required: true,
         },
         product_id: {
             type: DataTypes.INTEGER,
-            required: true,
+            // required: true,
         },
         order_id: {
             type: DataTypes.INTEGER,
-            required: true,
+            // required: true,
         },
     });
 

@@ -18,11 +18,11 @@ const ratingModel = (sequelize, DataType) =>
         // foreign key
         product_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         },
         user_id: {
             type: DataType.INTEGER,
-            required: true
+            // required: true
         }
     });
 module.exports = ratingModel;
