@@ -89,6 +89,14 @@ async function deleteAllProduct(req, res) {
 
 /*................Wishlist................*/
 
+async function createWishlist(req, res) {
+  const id = req.user.id;
+  let obj = req.body;
+  obj.user_id = id;
+  let newRecord = await wishlist.create(obj);
+  res.status(201).json(newRecord);
+}
+
 async function getAllWishlists(req, res) {
   const id = req.params.id;
   let allRecords = await  wishlist.getAll(id);
@@ -207,6 +215,7 @@ module.exports = {
   handleSignin,
   
 // handel Wishlist
+createWishlist,
 getAllWishlists,
 deleteWishlists,
 deleteAllWishlists,
