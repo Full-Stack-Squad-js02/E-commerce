@@ -19,6 +19,9 @@ const {
     handleSignup,
     handleGetUsers,
     handleSignin,
+    handleCreateCart,
+    handleGetAllCart,
+    handleDeleteCart,
 
 } = require('./routes-functions');
 
@@ -29,5 +32,10 @@ router.post('/signin', basicAuth, handleSignin);
 router.post('/order',bearerAuth, permissions('read'), handleCreateorder);
 router.put('/order/:id',bearerAuth, permissions('update'), handleUpdateorder);
 router.delete('/order',bearerAuth, permissions('delete'), handleDeleteorder);
+router.post('/cart', bearerAuth, handleCreateCart);
+router.get('/cart/:id', bearerAuth, handleGetAllCart);
+router.delete('/cart/:id', bearerAuth, handleDeleteCart);
+
+
 
 module.exports = router;

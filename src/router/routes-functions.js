@@ -1,4 +1,5 @@
 'use strict';
+const { response } = require('express');
 const {
   users,
   product,
@@ -98,6 +99,37 @@ async function handleDeleteorder(req, res) {
   let deletedRecord = await order.delete(id);
   res.status(204).json(deletedRecord);
 }
+/*................Cart................*/
+async function handleCreateCart(req, res) {
+  let id = req.user.id;
+  let obj = req.body;
+  obj.user_id = id;
+  let newRecord = await cart.create(obj);
+  res.status(201).json(newRecord);
+}
+
+async function handleGetAllCart(req, res) {
+  const id = req.params.id;
+  const id2 = req.user.id;
+  if (id == id2) {
+    let allRecords = await cart.getAll(id);
+    res.status(200).json(allRecords);
+  } else {
+    res.send("Access denied");
+  }
+}
+
+async function handleDeleteCart(req, res) {
+  // make shore that just user can delete his own cart 
+  let id = req.params.id;
+  const id2 = req.user.id;
+  let deletedRecord = await cart.delete(id, id2);
+  if (deletedRecord == 0){
+    res.status(200).send("Access denied");
+  }
+  res.status(200).json(deletedRecord);
+}
+/*...............End Cart..............*/
 
 module.exports = {
   //API
@@ -109,4 +141,8 @@ module.exports = {
   handleCreateorder,
   handleUpdateorder,
   handleDeleteorder,
+  //Handle Cart :
+  handleCreateCart,
+  handleGetAllCart,
+  handleDeleteCart,
 }
