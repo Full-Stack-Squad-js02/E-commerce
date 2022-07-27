@@ -3,11 +3,13 @@
 const orderModel = (sequelize, DataTypes) =>
     sequelize.define("orders", {
         date: {
-            type: DataTypes.DATE,
-            required: true,
+                  type: DataTypes.DATE,
+                  defaultValue: new Date().toLocaleString('en-US', {
+                    timeZone: 'Asia/Calcutta'
+                  })           
         },
         quantity: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             required: true,
         },
         status: {
