@@ -9,14 +9,22 @@ const permissions = require('../middlewares/acl');
 
 const {
     homePage,
+    //Product
+    getAllProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    deleteAllProduct,
+
+    //Cart
+    createCart,
+    getAllCart,
+    deleteAllCart,
 
     //AUTH
     handleSignup,
     handleGetUsers,
     handleSignin,
-    handleCreateCart,
-    handleGetAllCart,
-    handleDeleteCart,
 
 } = require('./routes-functions');
 
@@ -24,10 +32,16 @@ router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
-router.post('/cart', bearerAuth, handleCreateCart);
-router.get('/cart/:id', bearerAuth, handleGetAllCart);
-router.delete('/cart/:id', bearerAuth, handleDeleteCart);
+router.post('/cart', bearerAuth, createCart);
+router.get('/cart/:id', bearerAuth, getAllCart);
+router.delete('/cart/:id', bearerAuth, deleteAllCart);
 
 
+
+router.post('/product', bearerAuth, createProduct);
+router.get('/product/:id', bearerAuth, getAllProducts);
+router.put('/product/:id', bearerAuth, updateProduct); //incomlete
+router.delete('/product/:id', bearerAuth, deleteProduct); //incomlete
+router.delete('/product', bearerAuth, deleteAllProduct);
 
 module.exports = router;

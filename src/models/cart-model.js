@@ -2,10 +2,6 @@
 
 const cartModel = (sequelize, DataTypes) =>
     sequelize.define("carts", {
-        // id: {
-        //     type: DataTypes.INTEGER,
-        //     required: true,
-        // },
         price: {
             type: DataTypes.INTEGER,
             required: true,

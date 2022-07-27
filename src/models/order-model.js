@@ -26,11 +26,11 @@ const orderModel = (sequelize, DataTypes) =>
         // foreign key
          product_id: {
             type: DataTypes.INTEGER,
-            required: true,
+            // required: true,
         },
         user_id: {
             type: DataTypes.INTEGER,
-            required: true,
+            // required: true,
         },
     });
 
