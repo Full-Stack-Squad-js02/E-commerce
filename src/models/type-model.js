@@ -1,9 +1,9 @@
 'use strict';
 
-const typeModel = (sequelize, DataType) =>
+const typeModel = (sequelize, DataTypes) =>
     sequelize.define('types', {
         name: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
         },
     });
 module.exports = typeModel;

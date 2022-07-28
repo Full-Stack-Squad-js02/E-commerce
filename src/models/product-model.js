@@ -1,44 +1,44 @@
 'use strict';
 
-const productModel = (sequelize, DataType) =>
+const productModel = (sequelize, DataTypes) =>
     sequelize.define('Products', {
         title: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             required: true
         },
         description: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
         },
         image: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             required: true
         },
         price: {
-            type: DataType.STRING,
+            type: DataTypes.INTEGER,
             required: true
         },
         quantity: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             required: true
         },
         color: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
         },
         // foreign key
         cart_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         },
         user_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         },
         category_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         },
         wishlist_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
         },
     });
 module.exports = productModel;

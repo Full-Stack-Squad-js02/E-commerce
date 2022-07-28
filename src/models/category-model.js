@@ -1,13 +1,13 @@
 'use strict';
 
-const categoryModel = (sequelize, DataType) =>
+const categoryModel = (sequelize, DataTypes) =>
     sequelize.define('categories', {
         name: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             required: true
         },
         type_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         },
     });

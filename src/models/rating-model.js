@@ -1,27 +1,27 @@
 'use strict';
 
-const ratingModel = (sequelize, DataType) =>
+const ratingModel = (sequelize, DataTypes) =>
     sequelize.define('ratings', {
         name: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             required: true
         },
         description: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             required: true
 
         },
         rating: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             required: true
         },
         // foreign key
         product_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         },
         user_id: {
-            type: DataType.INTEGER,
+            type: DataTypes.INTEGER,
             // required: true
         }
     });

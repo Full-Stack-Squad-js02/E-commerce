@@ -8,39 +8,46 @@ const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');
 
 const {
-    homePage,
-
-    //Product
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    deleteAllProduct,
-
-    //Cart
-    createCart,
-    getAllCart,
-    deleteAllCart,
-
     //API
-    Createorder,
-    Updateorder,
-    Deleteorder,
-    // Wishlist
-    createWishlist,
-    getAllWishlists,
-    deleteWishlists,
-    deleteAllWishlists,
-
+    homePage,
 
     //AUTH
     handleSignup,
     handleGetUsers,
     handleSignin,
+
+    // Products Functions:
+    getAllProducts,
+    createProduct,
+    updateProduct,
+    deleteOneProduct,
+    deleteAllProduct,
+
+    // Order Functions:
     getAllOrder,
+    CreateOrder,
+    UpdateOrder,
+    deleteOneOrder,
+    deleteAllOrder,
+
+    // Wishlist Functions:
+    getAllWishlist,
+    createWishlist,
+    deleteOneWishlist,
+    deleteAllWishlist,
+
+    //  Cart Functions: 
+    getAllCart,
+    createCart,
+    deleteOneCart,
+    deleteAllCart,
+
+    
+
 
 } = require('./routes-functions');
 
+const addProductToCart=require('./shop-route-functios');
 
 
 const {
@@ -58,48 +65,56 @@ const {
     searchForProductColor,
 } = require('./search-routes');
 
-
+/*..................AUTH ROUTES......................*/
 router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
 
-router.post('/order', bearerAuth, Createorder);
-router.put('/order/:id', bearerAuth, Updateorder);
-router.delete('/order/:id', bearerAuth, Deleteorder);
-router.get('/order/:id', bearerAuth, getAllOrder);
-
-
-router.post('/cart', bearerAuth, createCart);
-router.get('/cart/:id', bearerAuth, getAllCart);
-router.delete('/cart/:id', bearerAuth, deleteAllCart);
-router.get('/wishlist/:id', bearerAuth, getAllWishlists);
-router.delete('/wishlist/:id', bearerAuth, deleteWishlists);
-router.delete('/wishlist', bearerAuth, deleteAllWishlists);
-router.delete('/wishlist', bearerAuth, createWishlist);
-
-
-
+/*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
-router.get('/product/:id', bearerAuth, getAllProducts);
+router.get('/product', bearerAuth, getAllProducts);
 router.put('/product/:id', bearerAuth, updateProduct);
-router.delete('/product/:id', bearerAuth, deleteProduct);
+router.delete('/product/:id', bearerAuth, deleteOneProduct);
 router.delete('/product', bearerAuth, deleteAllProduct);
 
 
+/*..................Order ROUTES......................*/
+router.post('/order', bearerAuth, CreateOrder);
+router.get('/order', bearerAuth, getAllOrder);
+router.put('/order/:id', bearerAuth, UpdateOrder);
+router.delete('/order/:id', bearerAuth, deleteOneOrder);
+router.delete('/order', bearerAuth, deleteAllOrder);
 
+/*..................Wishlist ROUTES......................*/
+router.post('/wishlist', bearerAuth, createWishlist);
+router.get('/wishlist/:id', bearerAuth, getAllWishlist);
+router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist);
+router.delete('/wishlist', bearerAuth, deleteAllWishlist);
+
+
+/*..................Cart ROUTES......................*/
+router.post('/cart', bearerAuth, createCart);
+router.get('/cart', bearerAuth, getAllCart);
+router.delete('/cart/:id', bearerAuth, deleteOneCart);//make to delete one product from cart not from source
+router.delete('/cart', bearerAuth, deleteAllCart);
+
+
+/*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProduct);
 router.get('/admin/product', bearerAuth, getProductAdmin);
 
 
-
-
+/*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
 router.get('/searchname', bearerAuth, searchForTitleName);
 router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
+
+
+router.get('/productcart/:id', bearerAuth, addProductToCart);
 
 module.exports = router;
 

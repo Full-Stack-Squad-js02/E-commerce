@@ -1,17 +1,17 @@
 'use strict'
 
-const massageModel = (sequelize, DataType) =>
+const massageModel = (sequelize, DataTypes) =>
   sequelize.define("massages", {
     massage: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       required: true
     },
     status: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
     },
     // foreign key
     user_id: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
     }
   });
 

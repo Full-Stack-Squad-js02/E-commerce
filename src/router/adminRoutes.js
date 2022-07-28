@@ -1,25 +1,13 @@
 'use strict';
 
 const {
-    users ,productTabel, product
+    users,
+    productTabel,
 } = require("../models/index-model");
 
 
 
-
-//   async function SigninAdmin(req, res, next) {
-//     if (req.user.role === "admin") {
-//         const user = {
-//           user: req.user,
-//         };
-
-//         res.status(200).json(user);
-//       } else {
-//         res.status(403).send(" invalid signin ");
-//       }
-//     }
-
-//get all users
+//GET All users
 async function getUsersAdmin(req, res, next) {
     if (req.user.role == "admin") {
         try {
@@ -36,7 +24,6 @@ async function getUsersAdmin(req, res, next) {
 
 
 
-
 //DELETE users
 async function deleteUsers(req, res) {
     const id = req.params.id;
@@ -48,11 +35,8 @@ async function deleteUsers(req, res) {
         });
         if (deletedRecord == 1) {
             res.status(204).send(`user with id ${id} is deleted Successfully`);
-
-
         } else {
             res.status(403).send("deleted process is falied");
-
         }
     } else {
         res.send("you are not admin");
@@ -60,7 +44,7 @@ async function deleteUsers(req, res) {
     }
 }
 
-//get all product
+//Get All Products
 async function getProductAdmin(req, res, next) {
     if (req.user.role == "admin") {
         try {
@@ -76,7 +60,7 @@ async function getProductAdmin(req, res, next) {
 }
 
 
-//DELETE one product
+//DELETE One Product
 async function deleteOneProduct(req, res) {
     const id = req.params.id;
     if (req.user.role == "admin") {
@@ -87,18 +71,13 @@ async function deleteOneProduct(req, res) {
         });
         if (deletedRecord == 1) {
             res.status(204).send(`product with id ${id} is deleted Successfully`);
-
-
         } else {
             res.status(403).send("deleted process is falied");
-
         }
     } else {
         res.send("you are not admin");
-
     }
 }
-
 
 
 module.exports = {
