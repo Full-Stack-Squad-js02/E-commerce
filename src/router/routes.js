@@ -22,6 +22,10 @@ const {
     getAllCart,
     deleteAllCart,
 
+    //API
+    Createorder,
+    Updateorder,
+    Deleteorder,
     // Wishlist
     createWishlist,
     getAllWishlists,
@@ -33,6 +37,7 @@ const {
     handleSignup,
     handleGetUsers,
     handleSignin,
+    getAllOrder,
 
 } = require('./routes-functions');
 
@@ -48,6 +53,13 @@ router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
+
+router.post('/order',bearerAuth, Createorder);
+router.put('/order/:id',bearerAuth,Updateorder);
+router.delete('/order/:id',bearerAuth, Deleteorder);
+router.get('/order/:id', bearerAuth, getAllOrder);
+
+
 router.post('/cart', bearerAuth, createCart);
 router.get('/cart/:id', bearerAuth, getAllCart);
 router.delete('/cart/:id', bearerAuth, deleteAllCart);
@@ -55,6 +67,7 @@ router.get('/wishlist/:id', bearerAuth, getAllWishlists);
 router.delete('/wishlist/:id', bearerAuth, deleteWishlists);
 router.delete('/wishlist', bearerAuth, deleteAllWishlists);
 router.delete('/wishlist', bearerAuth, createWishlist);
+
 
 
 router.post('/product', bearerAuth, createProduct);

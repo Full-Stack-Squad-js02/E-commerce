@@ -11,6 +11,9 @@ const {
   wishlist,
   shipping,
 } = require('../models/index-model');
+const {
+  route
+} = require('./routes');
 
 function homePage(req, res) {
   res.status(200).send('SOOQNA E-COMMERCE');
@@ -166,6 +169,57 @@ async function handleSignin(req, res, next) {
   }
 }
 
+//.....................ORDER...............................
+
+
+//Create orders 
+async function Createorder(req, res) {
+  let obj = req.body;
+  obj.user_id = req.user.id;
+  let newRecord = await order.create(obj);
+  res.status(201).json(newRecord);
+}
+
+//UPDET orders
+async function Updateorder(req, res) {
+  const id = req.params.id;
+  const id2 = req.user.id;
+  const obj = req.body;
+  obj.user_id = id2;
+  let updatedRecord = await order.update(id,obj,id2)
+
+  if (updatedRecord) {
+      res.status(201).json(updatedRecord);
+    } else {
+      res.status(403).send(`Access Denid`);
+    }
+  }
+
+//DELETE orders
+async function Deleteorder(req, res) {
+  const id = req.user.id;
+  let deletedRecord = await order.deleteAll(id);
+   if (deletedRecord == 0) {
+    res.status(403).send("Access denied");
+  }
+  res.status(204).json(deletedRecord);
+  // res.status(204).send('Record is deleted Successfully')
+}
+
+async function getAllOrder(req, res) {
+  const id = req.params.id;
+  let allRecords = await order.getAll(id);
+  res.status(200).json(allRecords);
+}
+
+//..........End Order.....................
+
+
+
+
+
+
+
 /*................Cart................*/
 async function createCart(req, res) {
   let id = req.user.id;
@@ -209,16 +263,30 @@ module.exports = {
   deleteProduct,
   deleteAllProduct,
 
-  //AUTH
+
   handleSignup,
   handleGetUsers,
   handleSignin,
+
 
   // handel Wishlist
   createWishlist,
   getAllWishlists,
   deleteWishlists,
   deleteAllWishlists,
+
+  //Handle Order:
+  Createorder,
+  Updateorder,
+  Deleteorder,
+  getAllOrder,
+  
+// handel Wishlist
+createWishlist,
+getAllWishlists,
+deleteWishlists,
+deleteAllWishlists,
+
 
   //Handle Cart :
   createCart,
