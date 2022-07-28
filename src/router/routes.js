@@ -42,12 +42,22 @@ const {
 } = require('./routes-functions');
 
 
+
 const {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
     deleteOneProduct
 } = require('./adminRoutes');
+
+const {
+    //Search
+    searchForUser,
+    searchForTitleName,
+    searchForPriceOfProduct,
+    searchForProductColor,
+} = require('./search-routes');
+
 
 router.get('/', homePage);
 router.post('/signup', handleSignup);
@@ -86,6 +96,10 @@ router.get('/admin/product', bearerAuth, getProductAdmin);
 
 
 
-
+router.get('/searchid', bearerAuth, searchForUser);
+router.get('/searchname', bearerAuth, searchForTitleName);
+router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
+router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 module.exports = router;
+

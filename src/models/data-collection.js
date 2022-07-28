@@ -48,15 +48,18 @@ class DataCollection {
     searchByPrice(price) {
         return this.model.findAll({
             where: {
+
                 price
+
             }
         });
     }
 
-    searchByCategory(category_id) {
+
+    searchByColor(color) {
         return this.model.findAll({
             where: {
-                category_id
+                color 
             }
         });
     }
@@ -77,11 +80,11 @@ class DataCollection {
     update(id, data, id2) {
         // edit if the item not exist at all return no product
         return this.model.findOne({
-                where: {
-                    user_id: id2,
-                    id: id
-                }
-            })
+            where: {
+                user_id: id2,
+                id: id
+            }
+        })
             .then(record => {
                 console.log(record)
                 if (record) {
