@@ -48,10 +48,13 @@ class DataCollection {
     searchByPrice(price) {
         return this.model.findAll({
             where: {
-                price :price
+
+                price
+
             }
         });
     }
+
 
     searchByColor(color) {
         return this.model.findAll({
