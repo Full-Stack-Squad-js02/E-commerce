@@ -9,7 +9,7 @@ const permissions = require('../middlewares/acl');
 
 const {
     homePage,
-    
+
     //Product
     getAllProducts,
     createProduct,
@@ -36,6 +36,14 @@ const {
 
 } = require('./routes-functions');
 
+const {
+    //Search
+    searchForUser,
+    searchForTitleName,
+    searchForPriceOfProduct,
+    searchForProductColor,
+} = require('./search-routes');
+
 router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
@@ -54,5 +62,10 @@ router.get('/product/:id', bearerAuth, getAllProducts);
 router.put('/product/:id', bearerAuth, updateProduct); //incomlete
 router.delete('/product/:id', bearerAuth, deleteProduct); //incomlete
 router.delete('/product', bearerAuth, deleteAllProduct);
+
+router.get('/searchid', bearerAuth, searchForUser);
+router.get('/searchname', bearerAuth, searchForTitleName);
+router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
+router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 module.exports = router;

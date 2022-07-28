@@ -21,24 +21,74 @@ class DataCollection {
         });
     }
 
+    searchByUser(id) {
+        return this.model.findAll({
+            where: {
+                user_id: id
+            }
+        });
+    }
+
+    searchByName(name) {
+        return this.model.findAll({
+            where: {
+                title: name
+            }
+        });
+    }
+
+    searchByCategory(category_id) {
+        return this.model.findAll({
+            where: {
+                category_id
+            }
+        });
+    }
+
+    searchByPrice(price) {
+        return this.model.findAll({
+            where: {
+                price :price
+            }
+        });
+    }
+
+    searchByColor(color) {
+        return this.model.findAll({
+            where: {
+                color 
+            }
+        });
+    }
+
+    searchByCategoryPrice(category_id, price) {
+        return this.model.findAll({
+            where: {
+                category_id,
+                price
+            }
+        });
+    }
+
     create(record) {
         return this.model.create(record);
     }
 
     update(id, data, id2) {
+        // edit if the item not exist at all return no product
         return this.model.findOne({
-                where: {
-                    user_id: id2,
-                    id: id
-                }
-            })
+            where: {
+                user_id: id2,
+                id: id
+            }
+        })
             .then(record => {
                 console.log(record)
                 if (record) {
                     record.update(data);
                     return record;
                 } else {
-                    console.log('Access Denid');
+                    return 'Access denied';
                 }
             });
     }

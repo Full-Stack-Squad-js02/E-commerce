@@ -47,16 +47,16 @@ async function updateProduct(req, res) {
   const id2 = req.user.id;
   const obj = req.body;
   obj.user_id = id2;
-  let updatedRecord = await product.update(id,obj,id2)
+  let updatedRecord = await product.update(id, obj, id2)
   // res.status(200).json(updatedRecord);
 
   if (updatedRecord) {
-    console.log('uuuuuuuuuuuuuuu',updatedRecord);
-      res.status(201).json(updatedRecord);
-    } else {
-      res.status(403).send(`Access Denid`);
-    }
+    console.log('uuuuuuuuuuuuuuu', updatedRecord);
+    res.status(201).json(updatedRecord);
+  } else {
+    res.status(403).send(`Access Denid`);
   }
+}
 
 async function deleteProduct(req, res) {
   const id = req.params.id;
@@ -75,7 +75,7 @@ async function deleteAllProduct(req, res) {
   const id = req.user.id;
   let deletedRecord = await product.deleteAll(id);
   // console.log('ddddddddddddd',deletedRecord);
-   if (deletedRecord == 0) {
+  if (deletedRecord == 0) {
     res.status(403).send("Access denied");
   }
   res.status(204).json(deletedRecord);
@@ -99,31 +99,31 @@ async function createWishlist(req, res) {
 
 async function getAllWishlists(req, res) {
   const id = req.params.id;
-  let allRecords = await  wishlist.getAll(id);
+  let allRecords = await wishlist.getAll(id);
   res.status(200).json(allRecords);
 }
 async function deleteWishlists(req, res) {
   const id = req.params.id;
   const id2 = req.user.id;
-  let deletedRecord = await  wishlist.delete(id, id2);
- 
+  let deletedRecord = await wishlist.delete(id, id2);
+
   if (deletedRecord == 0) {
     res.status(403).send("Access denied");
   }
   res.status(204).json(deletedRecord);
-  
+
 }
 
 
 async function deleteAllWishlists(req, res) {
   const id = req.user.id;
-  let deletedRecord = await  wishlist.deleteAll(id);
-  
-   if (deletedRecord == 0) {
+  let deletedRecord = await wishlist.deleteAll(id);
+
+  if (deletedRecord == 0) {
     res.status(403).send("Access denied");
   }
   res.status(204).json(deletedRecord);
-  
+
 }
 
 /*................End Wishlist................*/
@@ -213,12 +213,12 @@ module.exports = {
   handleSignup,
   handleGetUsers,
   handleSignin,
-  
-// handel Wishlist
-createWishlist,
-getAllWishlists,
-deleteWishlists,
-deleteAllWishlists,
+
+  // handel Wishlist
+  createWishlist,
+  getAllWishlists,
+  deleteWishlists,
+  deleteAllWishlists,
 
   //Handle Cart :
   createCart,
