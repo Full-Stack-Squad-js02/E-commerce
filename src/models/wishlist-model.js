@@ -1,14 +1,13 @@
 'use strict'
 
-const wishListModel = (sequelize, DataType) =>
+const wishListModel = (sequelize, DataTypes) =>
 sequelize.define('wishlists', {
-   
     product_id: {
-        type: DataType.INTEGER,
+        type: DataTypes.INTEGER,
         // required: true
     },
     user_id: {
-        type: DataType.INTEGER,
+        type: DataTypes.INTEGER,
         // required: true
     }
 })

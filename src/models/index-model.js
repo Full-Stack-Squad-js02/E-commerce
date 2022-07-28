@@ -181,14 +181,14 @@ ratingTabel.belongsTo(productTabel, {
 
 // Cart many to many orders
 cartTabel.belongsToMany(orderTabel, {
-  through: "order_cart",
-  as: "orderTabel",
-  foreignKey: "cart_id",
+    through: "order_cart",
+    as: "orderTabel",
+    foreignKey: "cart_id",
 });
 orderTabel.belongsToMany(cartTabel, {
-  through: "odrer_cart",
-  as: "cartTabel",
-  foreignKey: "order_id",
+    through: "odrer_cart",
+    as: "cartTabel",
+    foreignKey: "order_id",
 });
 
 // Catagory has many products:
@@ -225,4 +225,15 @@ module.exports = {
     wishlist: wishlistCollection,
     shipping: shippingCollection,
     users: userTabel,
+    //Export Models
+    productTabel,
+    orderTabel,
+    cartTabel,
+    ratingTabel,
+    catagoryTabel,
+    typeTabel,
+    massageTabel,
+    wishlistTabel,
+    shippingTabel,
+    userTabel
 }
