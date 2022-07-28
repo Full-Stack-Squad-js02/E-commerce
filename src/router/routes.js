@@ -49,12 +49,29 @@ const {
 
 const addProductToCart=require('./shop-route-functios');
 
+
+const {
+    deleteUsers,
+    getUsersAdmin,
+    getProductAdmin,
+    deleteOneProduct
+} = require('./adminRoutes');
+
+const {
+    //Search
+    searchForUser,
+    searchForTitleName,
+    searchForPriceOfProduct,
+    searchForProductColor,
+} = require('./search-routes');
+
+/*..................AUTH ROUTES......................*/
 router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignin);
 
-
+/*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
 router.get('/product', bearerAuth, getAllProducts);
 router.put('/product/:id', bearerAuth, updateProduct);
@@ -62,26 +79,42 @@ router.delete('/product/:id', bearerAuth, deleteOneProduct);
 router.delete('/product', bearerAuth, deleteAllProduct);
 
 
+/*..................Order ROUTES......................*/
 router.post('/order', bearerAuth, CreateOrder);
 router.get('/order', bearerAuth, getAllOrder);
 router.put('/order/:id', bearerAuth, UpdateOrder);
 router.delete('/order/:id', bearerAuth, deleteOneOrder);
 router.delete('/order', bearerAuth, deleteAllOrder);
 
+/*..................Wishlist ROUTES......................*/
 router.post('/wishlist', bearerAuth, createWishlist);
 router.get('/wishlist/:id', bearerAuth, getAllWishlist);
 router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist);
 router.delete('/wishlist', bearerAuth, deleteAllWishlist);
 
+
+/*..................Cart ROUTES......................*/
 router.post('/cart', bearerAuth, createCart);
 router.get('/cart', bearerAuth, getAllCart);
 router.delete('/cart/:id', bearerAuth, deleteOneCart);//make to delete one product from cart not from source
 router.delete('/cart', bearerAuth, deleteAllCart);
 
+
+/*..................Admin ROUTES......................*/
+router.get('/admin/users', bearerAuth, getUsersAdmin);
+router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
+router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProduct);
+router.get('/admin/product', bearerAuth, getProductAdmin);
+
+
+/*..................Search ROUTES......................*/
+router.get('/searchid', bearerAuth, searchForUser);
+router.get('/searchname', bearerAuth, searchForTitleName);
+router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
+router.get('/searchcolor', bearerAuth, searchForProductColor);
+
+
 router.get('/productcart/:id', bearerAuth, addProductToCart);
 
-
-
-
-
 module.exports = router;
+

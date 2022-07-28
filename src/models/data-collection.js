@@ -53,10 +53,10 @@ class DataCollection {
         });
     }
 
-    searchByCategory(category_id) {
+    searchByColor(color) {
         return this.model.findAll({
             where: {
-                category_id
+                color
             }
         });
     }
