@@ -69,6 +69,7 @@ const {
 } = require('./cart-routes');
 
 const addProductToCart = require('./shop-route-functios');
+const userInfo = require("./userAccountSetting");
 
 /*..................AUTH ROUTES......................*/
 router.get('/', homePage);
@@ -119,7 +120,9 @@ router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 
-router.get('/productcart/:id', bearerAuth, addProductToCart);
+router.post('/productcart/:id', bearerAuth, addProductToCart);
+
+router.get('/userinfo', bearerAuth, userInfo);
 
 module.exports = router;
 

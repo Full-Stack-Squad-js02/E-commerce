@@ -9,7 +9,6 @@ const ratingModel = (sequelize, DataTypes) =>
         description: {
             type: DataTypes.STRING,
             required: true
-
         },
         rating: {
             type: DataTypes.INTEGER,

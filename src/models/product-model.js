@@ -14,11 +14,11 @@ const productModel = (sequelize, DataTypes) =>
             required: true
         },
         price: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             required: true
         },
         quantity: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             required: true
         },
         color: {

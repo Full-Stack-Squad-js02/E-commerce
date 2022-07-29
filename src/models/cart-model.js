@@ -13,6 +13,10 @@ const cartModel = (sequelize, DataTypes) =>
         //     defaultValue: 0,
         //     // autoIncrement: true,
         // },
+        cart_id: {
+            type: DataTypes.INTEGER,
+            // primaryKey: true
+        },
         // foreign key
         user_id: {
             type: DataTypes.INTEGER,

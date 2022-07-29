@@ -22,12 +22,6 @@ app.use(router);
     
 
 
-
-
-
-
-
-
 function start() {
     app.listen(port, () => {
         console.log(`server up on ${port}`);
