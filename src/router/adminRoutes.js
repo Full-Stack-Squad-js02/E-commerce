@@ -61,7 +61,7 @@ async function getProductAdmin(req, res, next) {
 
 
 //DELETE One Product
-async function deleteOneProduct(req, res) {
+async function deleteOneProductByAdmin(req, res) {
     const id = req.params.id;
     if (req.user.role == "admin") {
         let deletedRecord = await productTabel.destroy({
@@ -84,5 +84,5 @@ module.exports = {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
-    deleteOneProduct
+    deleteOneProductByAdmin
 };

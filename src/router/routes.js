@@ -54,7 +54,7 @@ const {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
-    deleteOneProduct
+    deleteOneProductByAdmin
 } = require('./adminRoutes');
 
 const {
@@ -64,6 +64,8 @@ const {
     searchForPriceOfProduct,
     searchForProductColor,
 } = require('./search-routes');
+
+const userInfo = require("./userAccountSetting");
 
 /*..................AUTH ROUTES......................*/
 router.get('/', homePage);
@@ -103,7 +105,7 @@ router.delete('/cart', bearerAuth, deleteAllCart);
 /*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
-router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProduct);
+router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
 
 
@@ -114,7 +116,10 @@ router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 
-router.get('/productcart/:id', bearerAuth, addProductToCart);
+router.post('/productcart/:id', bearerAuth, addProductToCart);
+
+
+router.get('/userinfo', bearerAuth, userInfo);
 
 module.exports = router;
 

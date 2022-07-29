@@ -25,6 +25,12 @@ async function handleSignup(req, res, next) {
       user: userRecord,
       token: userRecord.token
     };
+    if (userRecord) {
+      let newCart = await cart.create({
+        user_id: userRecord.id,
+      });
+      console.log(newCart);
+    }
     res.status(201).json(output);
   } catch (e) {
     console.error('Error in siginUp function', e);

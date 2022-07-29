@@ -9,11 +9,10 @@ const {
     massageTabel,
     wishlistTabel,
     shippingTabel,
-    userTabel
 } = require('../models/index-model');
 
 async function addProductToCart(req, res) {
-    const id = req.params.id;
+    const product_id = req.params.id;
     const userId = req.user.id;
     // let cart = await cartTabel.findOne({
     //     where: {
@@ -23,9 +22,18 @@ async function addProductToCart(req, res) {
 
     let product = await productTabel.findOne({
         where: {
-            id: id
+            id: product_id
         }
     });
+
+    if (product) {
+        let newProduct = await cartTabel.create({
+            product_id,
+            user_id:userId,
+        })
+        console.log(newProduct);
+        res.status(201).json(newProduct);
+    }
 
     // if (product) {
     //     cart.product_id = id;
