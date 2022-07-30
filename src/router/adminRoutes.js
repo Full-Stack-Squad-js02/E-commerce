@@ -3,6 +3,8 @@
 const {
     users,
     productTabel,
+    catagory,
+    type,
 } = require("../models/index-model");
 
 
@@ -24,7 +26,7 @@ async function getUsersAdmin(req, res, next) {
 
 
 
-//DELETE users
+//DELETE one user
 async function deleteUsers(req, res) {
     const id = req.params.id;
     if (req.user.role == "admin") {
@@ -79,10 +81,44 @@ async function deleteOneProductByAdmin(req, res) {
     }
 }
 
+// Add New Catagory
+
+async function createCatagory(req, res) {
+    if (req.user.role == "admin"){
+        let obj = req.body;
+    let newRecord = await catagory.create(obj);
+    res.status(201).json(newRecord);
+    }
+    else {
+    res.send("you are not admin");
+}
+    
+  }
+
+
+  // add New Type Under Catagory 
+
+  async function createType(req, res) {
+    if (req.user.role == "admin"){
+        let obj = req.body;
+    let newRecord = await type.create(obj);
+    res.status(201).json(newRecord);
+    }
+    else {
+    res.send("you are not admin");
+}
+    
+  }
+
+  
 
 module.exports = {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
-    deleteOneProductByAdmin
+    deleteOneProductByAdmin,
+    createCatagory,
+    createType
+
+
 };

@@ -41,11 +41,10 @@ const {
     createCart,
     deleteOneCart,
     deleteAllCart,
-
-    
-
+addRating
 
 } = require('./routes-functions');
+
 
 const addProductToCart=require('./shop-route-functios');
 
@@ -54,7 +53,9 @@ const {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
-    deleteOneProductByAdmin
+    deleteOneProductByAdmin,
+    createCatagory,
+    createType
 } = require('./adminRoutes');
 
 const {
@@ -107,7 +108,8 @@ router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
-
+router.post('/admin/catagory',bearerAuth,createCatagory);
+router.post('/admin/type',bearerAuth,createType);
 
 /*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
@@ -120,6 +122,8 @@ router.post('/productcart/:id', bearerAuth, addProductToCart);
 
 
 router.get('/userinfo', bearerAuth, userInfo);
+
+router.post('/rating/:id',bearerAuth,addRating);
 
 module.exports = router;
 

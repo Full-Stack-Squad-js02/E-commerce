@@ -28,9 +28,11 @@ async function handleSignup(req, res, next) {
     if (userRecord) {
       let newCart = await cart.create({
         user_id: userRecord.id,
-      });
-      console.log(newCart);
-    }
+          });
+          let newWishList = await wishlist.create({
+            user_id: userRecord.id,
+          });    
+      }
     res.status(201).json(output);
   } catch (e) {
     console.error('Error in siginUp function', e);
@@ -269,6 +271,21 @@ async function deleteAllCart(req, res) {
 
 /*...............End Cart..............*/
 
+/*...............rating................*/
+
+
+// user add rating on specific product
+
+async function addRating(req, res) {
+  let id = req.user.id;
+  let obj = req.body;
+  obj.product_id = id;
+  let newRecord = await rating.create(obj);
+  res.status(201).json(newRecord);
+}
+
+
+
 /*...........................................End API...........................................................*/
 
 
@@ -309,4 +326,5 @@ module.exports = {
   createCart,
   deleteOneCart,
   deleteAllCart,
+  addRating
 }
