@@ -71,7 +71,11 @@ const {
     deleteAllCart,
 } = require('./cart-routes');
 
-const addProductToCart = require('./shop-route-functios');
+
+const {
+    addProductToCart,
+    addProductToWishList,
+} = require('./shop-route-functios');
 
 const userInfo = require("./userAccountSetting");
 
@@ -106,7 +110,7 @@ router.delete('/wishlist', bearerAuth, deleteAllWishlist);
 /*..................Cart ROUTES......................*/
 router.post('/cart', bearerAuth, createCart);
 router.get('/cart', bearerAuth, getAllCart);
-router.delete('/cart/:id', bearerAuth, deleteOneCart);//make to delete one product from cart not from source
+router.delete('/cart/:id', bearerAuth, deleteOneCart); //make to delete one product from cart not from source
 router.delete('/cart', bearerAuth, deleteAllCart);
 
 
@@ -125,11 +129,11 @@ router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 
-router.post('/productcart/:id', bearerAuth, addProductToCart);
+router.post('/addtocart/:id', bearerAuth, addProductToCart);
+router.post('/addtowishlist/:id', bearerAuth, addProductToWishList);
 
 router.get('/userinfo', bearerAuth, userInfo);
 
 router.post('/rating/:id',bearerAuth,addRating);
 
 module.exports = router;
-

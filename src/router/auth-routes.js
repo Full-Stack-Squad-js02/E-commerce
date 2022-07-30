@@ -21,11 +21,15 @@ async function handleSignup(req, res, next) {
     if (userRecord) {
       let newCart = await cart.create({
         user_id: userRecord.id,
-          });
-          let newWishList = await wishlist.create({
-            user_id: userRecord.id,
-          });    
-      }
+
+      });
+      console.log(newCart);
+      let newWishList = await wishlist.create({
+        user_id: userRecord.id,
+      });
+      console.log(newWishList);
+    }
+
     res.status(201).json(output);
   } catch (e) {
     console.error('Error in siginUp function', e);
