@@ -7,15 +7,16 @@ const basicAuth = require('../middlewares/basic');
 const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');
 
-const {
-    //API
-    homePage,
+const addRating = require('./rating-route');
 
-    //AUTH
+
+   
+const {
+
     handleSignup,
     handleGetUsers,
     handleSignIn,
-
+    homePage
 } = require('./auth-routes');
 
 const {
@@ -23,7 +24,9 @@ const {
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
-    deleteOneProductByAdmin
+    deleteOneProductByAdmin,
+    createCatagory,
+    createType
 } = require('./adminRoutes');
 
 const {
@@ -68,10 +71,12 @@ const {
     deleteAllCart,
 } = require('./cart-routes');
 
+
 const {
     addProductToCart,
     addProductToWishList,
 } = require('./shop-route-functios');
+
 const userInfo = require("./userAccountSetting");
 
 /*..................AUTH ROUTES......................*/
@@ -114,7 +119,8 @@ router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
-
+router.post('/admin/catagory',bearerAuth,createCatagory);
+router.post('/admin',bearerAuth,createType);
 
 /*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
@@ -127,5 +133,7 @@ router.post('/addtocart/:id', bearerAuth, addProductToCart);
 router.post('/addtowishlist/:id', bearerAuth, addProductToWishList);
 
 router.get('/userinfo', bearerAuth, userInfo);
+
+router.post('/rating/:id',bearerAuth,addRating);
 
 module.exports = router;
