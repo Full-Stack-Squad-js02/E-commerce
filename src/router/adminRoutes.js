@@ -5,6 +5,8 @@ const {
     productTabel,
     catagory,
     type,
+    catagoryTabel,
+    typeTabel,
 } = require("../models/index-model");
 
 
@@ -84,33 +86,52 @@ async function deleteOneProductByAdmin(req, res) {
 // Add New Catagory
 
 async function createCatagory(req, res) {
-    if (req.user.role == "admin"){
+    if (req.user.role == "admin") {
         let obj = req.body;
-    let newRecord = await catagory.create(obj);
-    res.status(201).json(newRecord);
+        let newRecord = await catagory.create(obj);
+        res.status(201).json(newRecord);
+    } else {
+        res.send("you are not admin");
     }
-    else {
-    res.send("you are not admin");
+
 }
-    
-  }
 
 
-  // add New Type Under Catagory 
+// add New Type Under Catagory 
 
-  async function createType(req, res) {
-    if (req.user.role == "admin"){
+async function createType(req, res) {
+    if (req.user.role == "admin") {
+        let catagory = req.query.catagory
         let obj = req.body;
-    let newRecord = await type.create(obj);
-    res.status(201).json(newRecord);
-    }
-    else {
-    res.send("you are not admin");
-}
-    
-  }
+        let foundCatagory = await catagoryTabel.findOne({
+            where: {
+                name: catagory
+            }
+        })
+        if (foundCatagory) {
+            let newType = await typeTabel.create(obj)
+            newType.catagory_id = foundCatagory.id
+            foundCatagory.type_id = newType.id
+            // console.log("2222222222222222",foundCatagory)
+            res.status(201).json(newType);
+        } else {
+            let newCatagory = await catagoryTabel.create({
+                name: catagory
+            })
+            let newType = await typeTabel.create(obj)
+            newType.catagory_id = newCatagory.id
+            newCatagory.type_id = newType.id
+            // console.log("1111111111111111",newCatagory);
 
-  
+            res.status(201).json(newType);
+        }
+    } else {
+        res.send("you are not admin");
+    }
+
+}
+
+
 
 module.exports = {
     deleteUsers,

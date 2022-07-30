@@ -7,49 +7,20 @@ const basicAuth = require('../middlewares/basic');
 const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');
 
-const {
-    //API
-    homePage,
+const addRating = require('./rating-route');
 
-    //AUTH
+
+   
+const {
+
     handleSignup,
     handleGetUsers,
-    handleSignin,
-
-    // Products Functions:
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    deleteOneProduct,
-    deleteAllProduct,
-
-    // Order Functions:
-    getAllOrder,
-    CreateOrder,
-    UpdateOrder,
-    deleteOneOrder,
-    deleteAllOrder,
-
-    // Wishlist Functions:
-    getAllWishlist,
-    createWishlist,
-    deleteOneWishlist,
-    deleteAllWishlist,
-
-    //  Cart Functions: 
-    getAllCart,
-    createCart,
-    deleteOneCart,
-    deleteAllCart,
-addRating
-
-} = require('./routes-functions');
-
-
-const addProductToCart=require('./shop-route-functios');
-
+    handleSignIn,
+    homePage
+} = require('./auth-routes');
 
 const {
+    // Admin Functions :
     deleteUsers,
     getUsersAdmin,
     getProductAdmin,
@@ -59,12 +30,48 @@ const {
 } = require('./adminRoutes');
 
 const {
-    //Search
+    // Search Functions :
     searchForUser,
     searchForTitleName,
     searchForPriceOfProduct,
     searchForProductColor,
 } = require('./search-routes');
+
+const {
+    // Products Functions :
+    getAllProducts,
+    createProduct,
+    updateProduct,
+    deleteOneProduct,
+    deleteAllProduct,
+} = require('./products-routes');
+
+const {
+    // Orders Functions:
+    getAllOrder,
+    CreateOrder,
+    UpdateOrder,
+    deleteOneOrder,
+    deleteAllOrder,
+} = require('./order-routes');
+
+const {
+    // Wishlist Functions:
+    getAllWishlist,
+    createWishlist,
+    deleteOneWishlist,
+    deleteAllWishlist,
+} = require('./wishList-routes');
+
+const {
+    //  Cart Functions: 
+    getAllCart,
+    createCart,
+    deleteOneCart,
+    deleteAllCart,
+} = require('./cart-routes');
+
+const addProductToCart = require('./shop-route-functios');
 
 const userInfo = require("./userAccountSetting");
 
@@ -72,7 +79,7 @@ const userInfo = require("./userAccountSetting");
 router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
-router.post('/signin', basicAuth, handleSignin);
+router.post('/signin', basicAuth, handleSignIn);
 
 /*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
@@ -91,7 +98,7 @@ router.delete('/order', bearerAuth, deleteAllOrder);
 
 /*..................Wishlist ROUTES......................*/
 router.post('/wishlist', bearerAuth, createWishlist);
-router.get('/wishlist/:id', bearerAuth, getAllWishlist);
+router.get('/wishlist', bearerAuth, getAllWishlist);
 router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist);
 router.delete('/wishlist', bearerAuth, deleteAllWishlist);
 
@@ -109,7 +116,7 @@ router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
 router.post('/admin/catagory',bearerAuth,createCatagory);
-router.post('/admin/type',bearerAuth,createType);
+router.post('/admin',bearerAuth,createType);
 
 /*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
@@ -119,7 +126,6 @@ router.get('/searchcolor', bearerAuth, searchForProductColor);
 
 
 router.post('/productcart/:id', bearerAuth, addProductToCart);
-
 
 router.get('/userinfo', bearerAuth, userInfo);
 
