@@ -13,10 +13,11 @@ const cartModel = (sequelize, DataTypes) =>
         //     defaultValue: 0,
         //     // autoIncrement: true,
         // },
-        cart_id: {
-            type: DataTypes.INTEGER,
-            // primaryKey: true
-        },
+        // cart_id: {
+        //     type: DataTypes.INTEGER,
+        //     // autoIncrement: true,
+        //     // primaryKey: true,
+        // },
         // foreign key
         user_id: {
             type: DataTypes.INTEGER,
@@ -32,51 +33,6 @@ const cartModel = (sequelize, DataTypes) =>
         },
     });
 
-// const cartModel = (sequelize, DataTypes) =>
-//     sequelize.define("carts", {
-//          title: {
-//             type: DataTypes.STRING,
-//             required: true
-//         },
-//         description: {
-//             type: DataTypes.STRING,
-//         },
-//         image: {
-//             type: DataTypes.STRING,
-//             required: true
-//         },
-//         price: {
-//             type: DataTypes.STRING,
-//             required: true
-//         },
-//         quantity: {
-//             type: DataTypes.INTEGER,
-//             required: true
-//         },
-//         color: {
-//             type: DataTypes.STRING,
-//         },
-//         total_price: {
-//             type: DataTypes.INTEGER,
-//             required: true,
-//         },
-//         items: {
-//             type: DataTypes.INTEGER,
-//             required: true,
-//         },
-//         // foreign key
-//         user_id: {
-//             type: DataTypes.INTEGER,
-//             // required: true,
-//         },
-//         product_id: {
-//             type: DataTypes.INTEGER,
-//             // required: true,
-//         },
-//         order_id: {
-//             type: DataTypes.INTEGER,
-//             // required: true,
-//         },
-//     });
+// cartModel.removeAttribute('id');
 
 module.exports = cartModel;

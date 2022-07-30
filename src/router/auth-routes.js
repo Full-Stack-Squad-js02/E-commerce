@@ -23,6 +23,10 @@ async function handleSignup(req, res, next) {
         user_id: userRecord.id,
       });
       console.log(newCart);
+      let newWishList = await wishlist.create({
+        user_id: userRecord.id,
+      });
+      console.log(newWishList);
     }
     res.status(201).json(output);
   } catch (e) {
