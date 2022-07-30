@@ -27,12 +27,30 @@ async function addProductToCart(req, res) {
     });
 
     if (product) {
-        let newProduct = await cartTabel.create({
-            product_id,
-            user_id:userId,
+        let cart = await cartTabel.findOne({
+            where: {
+                user_id: userId,
+            }
         })
-        console.log(newProduct);
-        res.status(201).json(newProduct);
+        if (cart) {
+            if (!cart.product_id) {
+                let newProduct = await cartTabel.update({
+                    product_id,
+                })
+                console.log('UUUUUUUUUu', newProduct);
+                res.status(201).json(newProduct);
+            } else {
+                let newProduct = await cartTabel.create({
+                    product_id,
+                    user_id: userId,
+                })
+                console.log(newProduct);
+                res.status(201).json(newProduct);
+            }
+        }
+    } else {
+        console.log('Product is not avaliable');
+        res.status(403).send('Product is not avaliable');
     }
 
     // if (product) {
@@ -49,7 +67,7 @@ async function addProductToCart(req, res) {
     //             user_id: userId
     //         }
     //     });
-        
+
     //     let wholeCart = await cartTabel.findOne({
     //     where: {
     //         user_id: userId
@@ -60,20 +78,55 @@ async function addProductToCart(req, res) {
     // }
 }
 
-module.exports = addProductToCart;
+async function addProductToWishList(req, res) {
+    const product_id = req.params.id;
+    const userId = req.user.id;
+    let product = await productTabel.findOne({
+        where: {
+            id: product_id
+        }
+    });
 
+    if (product) {
+        let wishlist = await wishlistTabel.findOne({
+            where: {
+                user_id: userId,
+            }
+        })
+        if (wishlist) {
+            if (!wishlist.product_id) {
+                let newProduct = await wishlistTabel.update({
+                    product_id,
+                })
+                console.log('UUUUUUUUUu', newProduct);
+                res.status(201).json(newProduct);
+            } else {
+                let newProduct = await wishlistTabel.create({
+                    product_id,
+                    user_id: userId,
+                })
+                console.log(newProduct);
+                res.status(201).json(newProduct);
+            }
+        }
+    } else {
+        console.log('Product is not avaliable');
+        res.status(403).send('Product is not avaliable');
+    }
 
+}
 
-// cart.totalprice = cart.totalprice + product.price;
+async function makeOrder(req, res) {
+    const userId = req.user.id;
+    const adress= req.query.id;
+    let allProductsInCart = await cartTabel.findAll({ where: { user_id: userId } });
+    if (allProductsInCart) {
+        // let order = 
+    }
+}
 
-//    let addedItem = await cartTabel.create({
-//             product_id: id,
-//             // totalprice: cart.totalprice + product.price,
-//             // quantity: cart.quantity + 1
-//         });
-// addedItem.totalprice = cart.totalprice + product.price,
-// addedItem.quantity=cart.quantity+1;
-// console.log('111111111111', cart.totalprice);
-// console.log('222222222222', product.price);
-// console.log('333333333333', cart.quantity);
-// console.log('4444444444', product.quantity);
+module.exports = {
+    addProductToCart,
+    addProductToWishList,
+    makeOrder,
+};
