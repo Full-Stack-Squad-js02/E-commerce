@@ -111,9 +111,9 @@ router.delete('/cart', bearerAuth, deleteAllCart);
 
 /*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
+router.get('/admin/product', bearerAuth, getProductAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
-router.get('/admin/product', bearerAuth, getProductAdmin);
 
 
 /*..................Search ROUTES......................*/
