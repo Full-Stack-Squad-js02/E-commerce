@@ -15,7 +15,7 @@ const orderModel = (sequelize, DataTypes) =>
         status: {
             type: DataTypes.STRING,
             required: true,
-            defaultValue: 'Submitted',
+            defaultValue: 'submitted',
         },
         adress: {
             type: DataTypes.STRING,
@@ -25,6 +25,10 @@ const orderModel = (sequelize, DataTypes) =>
         },
         total_price: {
             type: DataTypes.STRING,
+        },
+        isRecived: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
         },
         // foreign key
          product_id: {

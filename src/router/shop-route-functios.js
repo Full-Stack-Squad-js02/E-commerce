@@ -1,4 +1,9 @@
 'use strict';
+const io = require('socket.io-client');
+let host = `http://localhost:3030/`;
+
+const serverConnection = io.connect(host);
+
 const {
     productTabel,
     orderTabel,
@@ -168,8 +173,8 @@ async function addProductFromWishListToCart(req, res) {
     });
     if (productInWishList) {
         let productInCart = await cartTabel.create({
-            user_id:userId,
-            product_id:productId,
+            user_id: userId,
+            product_id: productId,
         });
         res.status(201).json(productInCart);
     } else {
@@ -224,7 +229,40 @@ async function submitOrder(req, res) {
             user_id: userId,
         }
     })
-    res.send(order);
+    res.status(201).json(order);
+}
+
+async function confirmOrder(req, res) {
+    const user = req.user;
+    // const orderId = req.params.id;
+    let order = await orderTabel.findAll({
+        where: {
+            user_id: user.id,
+            status: 'submitted',
+            isRecived: false,
+        }
+    });
+    let orderIds = order.map(order => {
+        serverConnection.emit('confirm-order', order.id, user);
+    })
+    res.send(order)
+}
+
+async function reciveOrder(req, res) {
+    const user = req.user;
+    // const orderId = req.params.id;
+    let order = await orderTabel.update({
+        isRecived:true,
+    }, {
+        where: {
+            user_id: user.id,
+            status: 'submitted',//delivered
+            isRecived:false,
+        }
+    });
+    res.send(order)
+    // let orderIds = order.map(order => order.id)
+    serverConnection.emit('recive-order', user);
 }
 
 module.exports = {
@@ -232,4 +270,6 @@ module.exports = {
     addProductToWishList,
     addProductFromWishListToCart,
     submitOrder,
+    confirmOrder,
+    reciveOrder,
 };

@@ -26,7 +26,9 @@ const {
     getProductAdmin,
     deleteOneProductByAdmin,
     createCatagory,
-    createType
+    createType,
+    getAllOrderByAdmin,
+    confirmOrdersByAdmin,
 } = require('./adminRoutes');
 
 const {
@@ -74,10 +76,12 @@ const {
 
 
 const {
-    addProductToCart,
+     addProductToCart,
     addProductToWishList,
     addProductFromWishListToCart,
     submitOrder,
+    confirmOrder,
+    reciveOrder,
 } = require('./shop-route-functios');
 const createShipping = require("./shippingRoutes")
 const userInfo = require("./userAccountSetting");
@@ -121,8 +125,10 @@ router.delete('/cart', bearerAuth, deleteAllCart);
 /*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
+router.get('/admin/submittedorder', bearerAuth, getAllOrderByAdmin);
 router.post('/admin/catagory',bearerAuth,createCatagory);
 router.post('/admin',bearerAuth,createType);
+router.put('/admin/confirmorders',bearerAuth,confirmOrdersByAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
@@ -138,6 +144,8 @@ router.post('/addtocart/:id', bearerAuth, addProductToCart);
 router.post('/addtowishlist/:id', bearerAuth, addProductToWishList);
 router.post('/productfromwishlisttocart/:id', bearerAuth, addProductFromWishListToCart);
 router.post('/submitorder', bearerAuth, submitOrder);
+router.post('/confirmOrder', bearerAuth, confirmOrder);
+router.post('/reciveOrder', bearerAuth, reciveOrder);
 
 router.get('/userinfo', bearerAuth, userInfo);
 

@@ -65,7 +65,7 @@ const userModel = (sequelize, DataTypes) => {
         }
     });
     model.authenticateBasic = async function (username, password) {
-        console.log('00000000000000');
+        // console.log('00000000000000');
         const user = await this.findOne({
             where: {
                 username: username

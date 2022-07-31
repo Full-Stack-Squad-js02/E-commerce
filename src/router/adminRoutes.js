@@ -1,10 +1,15 @@
 'use strict';
 
+const io = require('socket.io-client');
+let host = `http://localhost:3030/`;
+
+const serverConnection = io.connect(host);
+
 const {
     users,
     productTabel,
     catagory,
-    type,
+    orderTabel,
     catagoryTabel,
     typeTabel,
 } = require("../models/index-model");
@@ -131,6 +136,39 @@ async function createType(req, res) {
 
 }
 
+/*..........Shipping.......*/
+async function getAllOrderByAdmin(req, res) {
+     let allOrders = await orderTabel.findAll({
+        where: {
+            status: 'submitted',
+            isRecived: false,
+        }
+    });
+    res.status(200).json(allOrders);
+}
+
+async function confirmOrdersByAdmin(req, res) {
+         let allOrders = await orderTabel.findAll({
+        where: {
+            status: 'submitted',
+            isRecived: false,
+        }
+         }); 
+    if (allOrders) {
+        let updateState= await orderTabel.update({
+             status: 'delivered',
+         }, {
+             where: {
+                 status: 'submitted',
+                 isRecived: false,
+             }
+        })
+         serverConnection.emit('delivered-order', allOrders);
+         res.status(201).json(updateState);
+        
+    }
+}
+
 
 
 module.exports = {
@@ -139,7 +177,7 @@ module.exports = {
     getProductAdmin,
     deleteOneProductByAdmin,
     createCatagory,
-    createType
-
-
+    createType,
+    getAllOrderByAdmin,
+    confirmOrdersByAdmin,
 };
