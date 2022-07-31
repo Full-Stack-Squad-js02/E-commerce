@@ -40,7 +40,7 @@ async function deleteUser(req, res) {
         if (deletedRecord == 1) {
             res.status(204).send(`user with id ${id} is deleted Successfully`);
         } else {
-            res.status(403).send("deleted process is falied");
+            res.status(403).send("deleted process is Failed");
         }
     } else {
         res.send("you are not admin");
