@@ -18,6 +18,15 @@ async function getAllProducts(req, res) {
     res.status(200).json(allRecords);
 }
 
+// get one product with details
+async function getOneProduct(req, res){
+    const id = req.params.id;
+    // const id2 = req.user.id;
+    // const obj = req.body;
+    let detailsRecord = await product.get(id);
+    res.status(200).json(detailsRecord);
+}
+
 // To Edit specific product :
 async function updateProduct(req, res) {
     const id = req.params.id;
@@ -60,4 +69,5 @@ module.exports = {
     updateProduct,
     deleteOneProduct,
     deleteAllProduct,
+    getOneProduct,
 }

@@ -44,6 +44,7 @@ const {
     updateProduct,
     deleteOneProduct,
     deleteAllProduct,
+    getOneProduct,
 } = require('./products-routes');
 
 const {
@@ -78,7 +79,7 @@ const {
     addProductFromWishListToCart,
     submitOrder,
 } = require('./shop-route-functios');
-
+const createShipping = require("./shippingRoutes")
 const userInfo = require("./userAccountSetting");
 
 /*..................AUTH ROUTES......................*/
@@ -90,6 +91,7 @@ router.post('/signin', basicAuth, handleSignIn);
 /*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
 router.get('/product', bearerAuth, getAllProducts);
+router.get('/product/:id', bearerAuth, getOneProduct);
 router.put('/product/:id', bearerAuth, updateProduct);
 router.delete('/product/:id', bearerAuth, deleteOneProduct);
 router.delete('/product', bearerAuth, deleteAllProduct);
@@ -141,5 +143,8 @@ router.get('/userinfo', bearerAuth, userInfo);
 
 /*..................Rating ROUTES......................*/
 router.post('/rating/:id',bearerAuth,addRating);
+
+/*............... createShipping ...................*/
+router.get('/shipping/:id', bearerAuth, createShipping);
 
 module.exports = router;
