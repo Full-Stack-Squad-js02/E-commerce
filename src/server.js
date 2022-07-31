@@ -1,10 +1,7 @@
 'use strict';
 require('dotenv').config();
 const port = process.env.PORT || 3000;
-// const path = require('path');
-const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
 const cors = require('cors');
 const morgan = require('morgan');
 const router = require('./router/routes');
@@ -14,10 +11,12 @@ const errorHandler = require("./error-handlers/500");
 const logger = require("./middlewares/logger");
 
 
-app.use(express.json());
-const server = http.createServer(app);
-const io = socketio(server);
+// const path = require('path');
+const http = require('http');
+const socketio = require('socket.io')(3030);
 
+
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
@@ -25,12 +24,30 @@ app.use(morgan('dev'));
 
 //app.use(express.static(path.join(__dirname, 'public')));
 
+// const server = http.createServer(app);
+// const io = socketio(socketio);
 
 // start connection with socket 
-server.on('connection', (socket) => {
+socketio.on('connection', (socket) => {
     console.log('Server connected to socketio server ', socket.id);
-    console.log("ssssssssssssssssssss",socket);
-    
+
+    socket.on('signin', (payload) => {
+        console.log(`${payload.user.username} is Logged In `);
+    });
+
+    socket.on('confirm-order', (orderId,user) => {
+        console.log(`User ${user.username} has ID :${user.id} confirm order ID : ${orderId}`);
+    });
+
+    socket.on('delivered-order', (allOrders) => {
+        allOrders.forEach(order => {
+            console.log(`Order/s related to user ID :${order.user_id} has been delivered`);
+        })
+    });
+
+    socket.on('recive-order', (user) => {
+        console.log(`User ${user.username} has ID :${user.id} recived his Order `);
+    });
 });
 
 
