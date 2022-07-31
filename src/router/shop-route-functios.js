@@ -9,6 +9,7 @@ const {
     massageTabel,
     wishlistTabel,
     shippingTabel,
+    userTabel,
 } = require('../models/index-model');
 
 async function addProductToCart(req, res) {
@@ -25,7 +26,6 @@ async function addProductToCart(req, res) {
             id: product_id
         }
     });
-
     if (product) {
         let cart = await cartTabel.findOne({
             where: {
@@ -36,18 +36,45 @@ async function addProductToCart(req, res) {
             if (!cart.product_id) {
                 let newProduct = await cartTabel.update({
                     product_id,
+                }, {
+                    where: {
+                        user_id: userId,
+                    }
+                })
+                let originalProduct = await productTabel.findOne({
+                    where: {
+                        id: product_id,
+                    }
                 })
                 console.log('UUUUUUUUUu', newProduct);
-                res.status(201).json(newProduct);
+                res.status(201).json(originalProduct);
             } else {
                 let newProduct = await cartTabel.create({
                     product_id,
                     user_id: userId,
                 })
                 console.log(newProduct);
-                res.status(201).json(newProduct);
+                let originalProduct = await productTabel.findOne({
+                    where: {
+                        id: product_id,
+                    }
+                })
+                res.status(201).json(originalProduct);
             }
+        } else {
+            let newProduct = await cartTabel.create({
+                product_id,
+                user_id: userId,
+            })
+            console.log(newProduct);
+            let originalProduct = await productTabel.findOne({
+                where: {
+                    id: product_id,
+                }
+            })
+            res.status(201).json(originalProduct);
         }
+
     } else {
         console.log('Product is not avaliable');
         res.status(403).send('Product is not avaliable');
@@ -97,16 +124,30 @@ async function addProductToWishList(req, res) {
             if (!wishlist.product_id) {
                 let newProduct = await wishlistTabel.update({
                     product_id,
+                }, {
+                    where: {
+                        user_id: userId,
+                    }
+                })
+                let originalProduct = await productTabel.findOne({
+                    where: {
+                        id: product_id,
+                    }
                 })
                 console.log('UUUUUUUUUu', newProduct);
-                res.status(201).json(newProduct);
+                res.status(201).json(originalProduct);;
             } else {
                 let newProduct = await wishlistTabel.create({
                     product_id,
                     user_id: userId,
                 })
                 console.log(newProduct);
-                res.status(201).json(newProduct);
+                let originalProduct = await productTabel.findOne({
+                    where: {
+                        id: product_id,
+                    }
+                })
+                res.status(201).json(originalProduct);
             }
         }
     } else {
@@ -116,17 +157,79 @@ async function addProductToWishList(req, res) {
 
 }
 
-async function makeOrder(req, res) {
+
+async function addProductFromWishListToCart(req, res) {
+    const productId = req.params.id;
     const userId = req.user.id;
-    const adress= req.query.id;
-    let allProductsInCart = await cartTabel.findAll({ where: { user_id: userId } });
-    if (allProductsInCart) {
-        // let order = 
+    let productInWishList = await wishlistTabel.findOne({
+        where: {
+            product_id: productId
+        }
+    });
+    if (productInWishList) {
+        let productInCart = await cartTabel.create({
+            user_id:userId,
+            product_id:productId,
+        });
+        res.status(201).json(productInCart);
+    } else {
+        console.log('Product is not in your Wishlist');
+        res.status(403).send('Product is not avaliable in your Wishlist');
     }
+}
+
+
+async function submitOrder(req, res) {
+    const userId = req.user.id;
+    let obj = req.body;
+    let order = [];
+    let allProductsInCart = await cartTabel.findAll({
+        where: {
+            user_id: userId
+        }
+    }); // array of objs
+    let user = await userTabel.findOne({
+        where: {
+            id: userId
+        }
+    })
+    if (allProductsInCart) {
+        for (let i = 0; i < allProductsInCart.length; i++) {
+            let productId = allProductsInCart[i].product_id;
+            console.log('Proooo', productId);
+            let allProductsInProductModel = await productTabel.findOne({
+                where: {
+                    id: productId,
+                }
+            })
+            console.log('allProductsInProductModel', allProductsInProductModel);
+            if (allProductsInProductModel) {
+                obj.user_id = userId;
+                obj.product_id = productId;
+                obj.quantity = i + 1;
+                if (!obj.adress) {
+                    obj.adress = user.adress;
+                }
+                let currentOdrer = await orderTabel.create(obj);
+                console.log("orderrrrrr after", currentOdrer);
+                order.push(currentOdrer);
+            }
+        }
+    }
+    await cartTabel.destroy({
+        truncate: {
+            cascade: true
+        },
+        where: {
+            user_id: userId,
+        }
+    })
+    res.send(order);
 }
 
 module.exports = {
     addProductToCart,
     addProductToWishList,
-    makeOrder,
+    addProductFromWishListToCart,
+    submitOrder,
 };

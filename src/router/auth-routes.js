@@ -1,4 +1,9 @@
 'use strict';
+const io = require('socket.io-client');
+let host = `http://localhost:3000/`;
+
+const serverConnection= io.connect(host);
+
 const {
   users,
   cart,
@@ -54,6 +59,12 @@ async function handleSignIn(req, res, next) {
       user: req.user,
       token: req.user.token
     };
+    if (user.token){
+     serverConnection.emit('connection', user
+      // console.log('welcom ',);
+      
+     );  
+    }
     res.status(200).json(user);
   } catch (e) {
     next(e.message);
