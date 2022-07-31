@@ -29,7 +29,7 @@ async function getUsersAdmin(req, res, next) {
 
 
 //DELETE one user
-async function deleteUsers(req, res) {
+async function deleteUser(req, res) {
     const id = req.params.id;
     if (req.user.role == "admin") {
         let deletedRecord = await users.destroy({
@@ -134,7 +134,7 @@ async function createType(req, res) {
 
 
 module.exports = {
-    deleteUsers,
+    deleteUser,
     getUsersAdmin,
     getProductAdmin,
     deleteOneProductByAdmin,

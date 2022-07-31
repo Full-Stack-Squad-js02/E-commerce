@@ -30,10 +30,10 @@ async function getOneProduct(req, res){
 // To Edit specific product :
 async function updateProduct(req, res) {
     const id = req.params.id;
-    const id2 = req.user.id;
+    const userId = req.user.id;
     const obj = req.body;
-    obj.user_id = id2;
-    let updatedRecord = await product.update(id, obj, id2)
+    obj.user_id = userId;
+    let updatedRecord = await product.update(id, obj, userId)
     if (updatedRecord) {
         res.status(201).json(updatedRecord);
     } else {
@@ -44,8 +44,8 @@ async function updateProduct(req, res) {
 // To Delete one or specific product :
 async function deleteOneProduct(req, res) {
     const id = req.params.id;
-    const id2 = req.user.id;
-    let deletedRecord = await product.delete(id, id2);
+    const userId = req.user.id;
+    let deletedRecord = await product.delete(id, userId);
     if (deletedRecord == 0) {
         res.status(403).send("Access denied");
     }
