@@ -15,6 +15,7 @@ const orderModel = (sequelize, DataTypes) =>
         status: {
             type: DataTypes.STRING,
             required: true,
+            defaultValue: 'Submitted',
         },
         adress: {
             type: DataTypes.STRING,
