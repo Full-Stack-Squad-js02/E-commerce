@@ -3,7 +3,7 @@
 require('dotenv').config();
 const socketPort = process.env.SOCKET_PORT;
 const io = require('socket.io-client');
-let host = `http://localhost:3030/`;
+let host = `http://localhost:${socketPort}/`;
 
 const serverConnection = io.connect(host);
 
@@ -139,12 +139,12 @@ async function createType(req, res) {
 }
 
 /*..........Shipping.......*/
-async function getAllOrderByAdmin(req, res) {
+async function getAllConfirmedOrderByAdmin(req, res) {
     let user = req.user;
     if (user.role === 'admin') {
         let allOrders = await orderTabel.findAll({
             where: {
-                status: 'submitted',
+                status: 'confirmed',
                 isRecived: false,
             }
         });
@@ -159,7 +159,7 @@ async function confirmOrdersByAdmin(req, res) {
     if (user.role === 'admin') {
         let allOrders = await orderTabel.findAll({
             where: {
-                status: 'submitted',
+                status: 'confirmed',
                 isRecived: false,
             }
         });
@@ -168,7 +168,7 @@ async function confirmOrdersByAdmin(req, res) {
                 status: 'delivered',
             }, {
                 where: {
-                    status: 'submitted',
+                    status: 'confirmed',
                     isRecived: false,
                 }
             })
@@ -190,6 +190,6 @@ module.exports = {
     deleteOneProductByAdmin,
     createCatagory,
     createType,
-    getAllOrderByAdmin,
+    getAllConfirmedOrderByAdmin,
     confirmOrdersByAdmin,
 };

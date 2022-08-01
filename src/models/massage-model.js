@@ -2,12 +2,15 @@
 
 const massageModel = (sequelize, DataTypes) =>
   sequelize.define("massages", {
-    massage: {
+    message: {
       type: DataTypes.STRING,
       required: true
     },
-    status: {
-      type: DataTypes.STRING,
+    // status: {
+    //   type: DataTypes.STRING,
+    // },
+    reciver_id: {
+      type: DataTypes.INTEGER,
     },
     // foreign key
     user_id: {
