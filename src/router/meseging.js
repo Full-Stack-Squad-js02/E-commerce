@@ -42,17 +42,30 @@ async function sendMessage(req, res) {
     let storedMessage = await massageTabel.create({
         message: obj.message,
         reciver_id: reciverId,
-        user_id:sender.id
-    })// sender and rec id edit model
+        user_id: sender.id
+    }) // sender and rec id edit model
     //   const joinRoom = () => {
     // if (username !== "" && room !== "") {
-    serverConnection.emit("send_message",storedMessage,sender,reciver);
+    serverConnection.emit("send_message", storedMessage, sender, reciver);
     res.status(201).json(storedMessage)
     // }
     //   };
 }
 
+async function getMessgesBetweenUsers(req, res) {
+    const reciverId = req.params.id;
+    const userId = req.user.id
+    const converstaion = await massageTabel.findAll({
+        where: {
+            user_id: userId,
+            reciver_id: reciverId
+        }
+    })
+
+    res.status(200).json(converstaion);
+}
 module.exports = {
     joinConversation,
-    sendMessage
+    sendMessage,
+    getMessgesBetweenUsers
 };
