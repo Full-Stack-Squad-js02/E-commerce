@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const dataModules = require('../models/data-collection');
+// const dataModules = require('../models/data-collection');
 const basicAuth = require('../middlewares/basic');
 const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');

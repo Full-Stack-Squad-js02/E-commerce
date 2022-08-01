@@ -5,19 +5,10 @@ const socketPort = process.env.SOCKET_PORT;
 const io = require('socket.io-client');
 let host = `http://localhost:${socketPort}/`;
 
-
 const serverConnection = io.connect(host);
 
 const {
-    productTabel,
-    orderTabel,
-    cartTabel,
-    ratingTabel,
-    catagoryTabel,
-    typeTabel,
     massageTabel,
-    wishlistTabel,
-    shippingTabel,
     userTabel
 } = require('../models/index-model');
 
