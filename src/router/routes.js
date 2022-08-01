@@ -21,12 +21,14 @@ const {
 
 const {
     // Admin Functions :
-    deleteUsers,
+    deleteUser,
     getUsersAdmin,
     getProductAdmin,
     deleteOneProductByAdmin,
     createCatagory,
-    createType
+    createType,
+    getAllOrderByAdmin,
+    confirmOrdersByAdmin,
 } = require('./adminRoutes');
 
 const {
@@ -44,6 +46,7 @@ const {
     updateProduct,
     deleteOneProduct,
     deleteAllProduct,
+    getOneProduct,
 } = require('./products-routes');
 
 const {
@@ -73,11 +76,24 @@ const {
 
 
 const {
-    addProductToCart,
+     addProductToCart,
     addProductToWishList,
+    addProductFromWishListToCart,
+    submitOrder,
+    confirmOrder,
+    reciveOrder,
 } = require('./shop-route-functios');
 
+const {
+    // Sitting Functions for User himself :
+    userInfo,
+    updateUserProfile,
+    deleteUserProfile,
+} = require("./userAccountSetting");
+
+const createShipping = require("./shippingRoutes")
 const userInfo = require("./userAccountSetting");
+
 
 /*..................AUTH ROUTES......................*/
 router.get('/', homePage);
@@ -88,10 +104,10 @@ router.post('/signin', basicAuth, handleSignIn);
 /*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
 router.get('/product', bearerAuth, getAllProducts);
+router.get('/product/:id', bearerAuth, getOneProduct);
 router.put('/product/:id', bearerAuth, updateProduct);
 router.delete('/product/:id', bearerAuth, deleteOneProduct);
 router.delete('/product', bearerAuth, deleteAllProduct);
-
 
 /*..................Order ROUTES......................*/
 router.post('/order', bearerAuth, CreateOrder);
@@ -101,11 +117,10 @@ router.delete('/order/:id', bearerAuth, deleteOneOrder);
 router.delete('/order', bearerAuth, deleteAllOrder);
 
 /*..................Wishlist ROUTES......................*/
-router.post('/wishlist', bearerAuth, createWishlist);
-router.get('/wishlist', bearerAuth, getAllWishlist);
-router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist);
-router.delete('/wishlist', bearerAuth, deleteAllWishlist);
-
+router.post('/wishlist', bearerAuth, createWishlist);//need to cancel it
+router.get('/wishlist', bearerAuth, getAllWishlist);//Edit to bring all products
+router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist); // Edit to delet one product
+router.delete('/wishlist', bearerAuth, deleteAllWishlist);// Edit to delet all product
 
 /*..................Cart ROUTES......................*/
 router.post('/cart', bearerAuth, createCart);
@@ -113,16 +128,15 @@ router.get('/cart', bearerAuth, getAllCart);
 router.delete('/cart/:id', bearerAuth, deleteOneCart); //make to delete one product from cart not from source
 router.delete('/cart', bearerAuth, deleteAllCart);
 
-
 /*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
-router.delete('/admin/deleteuser/:id', bearerAuth, deleteUsers);
-router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
-router.get('/admin/product', bearerAuth, getProductAdmin);
+router.get('/admin/submittedorder', bearerAuth, getAllOrderByAdmin);
 router.post('/admin/catagory',bearerAuth,createCatagory);
 router.post('/admin',bearerAuth,createType);
-
+router.put('/admin/confirmorders',bearerAuth,confirmOrdersByAdmin);
+router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
+router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 /*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
@@ -130,12 +144,23 @@ router.get('/searchname', bearerAuth, searchForTitleName);
 router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
 
-
+/*..................Shop ROUTES......................*/
 router.post('/addtocart/:id', bearerAuth, addProductToCart);
 router.post('/addtowishlist/:id', bearerAuth, addProductToWishList);
+router.post('/productfromwishlisttocart/:id', bearerAuth, addProductFromWishListToCart);
+router.post('/submitorder', bearerAuth, submitOrder);
+router.post('/confirmOrder', bearerAuth, confirmOrder);
+router.post('/reciveOrder', bearerAuth, reciveOrder);
 
-router.get('/userinfo', bearerAuth, userInfo);
+/*..................User Setting......................*/
+router.get('/userinfo', bearerAuth, userInfo);// we can handel it in frontend , we don't need this userInfo route
+router.put('/updateprofile', bearerAuth, updateUserProfile);
+router.delete('/deleteprofile', bearerAuth, deleteUserProfile);
 
+/*..................Rating ROUTES......................*/
 router.post('/rating/:id',bearerAuth,addRating);
+
+/*............... createShipping ...................*/
+router.get('/shipping/:id', bearerAuth, createShipping);
 
 module.exports = router;

@@ -1,10 +1,17 @@
 'use strict';
 
+require('dotenv').config();
+const socketPort = process.env.SOCKET_PORT;
+const io = require('socket.io-client');
+let host = `http://localhost:3030/`;
+
+const serverConnection = io.connect(host);
+
 const {
     users,
     productTabel,
     catagory,
-    type,
+    orderTabel,
     catagoryTabel,
     typeTabel,
 } = require("../models/index-model");
@@ -22,14 +29,14 @@ async function getUsersAdmin(req, res, next) {
             next(e.message);
         }
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 }
 
 
 
 //DELETE one user
-async function deleteUsers(req, res) {
+async function deleteUser(req, res) {
     const id = req.params.id;
     if (req.user.role == "admin") {
         let deletedRecord = await users.destroy({
@@ -40,10 +47,10 @@ async function deleteUsers(req, res) {
         if (deletedRecord == 1) {
             res.status(204).send(`user with id ${id} is deleted Successfully`);
         } else {
-            res.status(403).send("deleted process is falied");
+            res.status(403).send("deleted process is Failed");
         }
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
 
     }
 }
@@ -59,7 +66,7 @@ async function getProductAdmin(req, res, next) {
             next(e.message);
         }
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 }
 
@@ -79,7 +86,7 @@ async function deleteOneProductByAdmin(req, res) {
             res.status(403).send("deleted process is falied");
         }
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 }
 
@@ -91,7 +98,7 @@ async function createCatagory(req, res) {
         let newRecord = await catagory.create(obj);
         res.status(201).json(newRecord);
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 
 }
@@ -126,20 +133,63 @@ async function createType(req, res) {
             res.status(201).json(newType);
         }
     } else {
-        res.send("you are not admin");
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 
+}
+
+/*..........Shipping.......*/
+async function getAllOrderByAdmin(req, res) {
+    let user = req.user;
+    if (user.role === 'admin') {
+        let allOrders = await orderTabel.findAll({
+            where: {
+                status: 'submitted',
+                isRecived: false,
+            }
+        });
+        res.status(200).json(allOrders);
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
+}
+
+async function confirmOrdersByAdmin(req, res) {
+    let user = req.user;
+    if (user.role === 'admin') {
+        let allOrders = await orderTabel.findAll({
+            where: {
+                status: 'submitted',
+                isRecived: false,
+            }
+        });
+        if (allOrders) {
+            let updateState = await orderTabel.update({
+                status: 'delivered',
+            }, {
+                where: {
+                    status: 'submitted',
+                    isRecived: false,
+                }
+            })
+            serverConnection.emit('delivered-order', allOrders);
+            console.log('Updated Successfully');
+            res.status(201).json(updateState);
+        }
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
 }
 
 
 
 module.exports = {
-    deleteUsers,
+    deleteUser,
     getUsersAdmin,
     getProductAdmin,
     deleteOneProductByAdmin,
     createCatagory,
-    createType
-
-
+    createType,
+    getAllOrderByAdmin,
+    confirmOrdersByAdmin,
 };
