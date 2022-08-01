@@ -3,7 +3,7 @@
 require('dotenv').config();
 const socketPort = process.env.SOCKET_PORT;
 const io = require('socket.io-client');
-let host = `http://localhost:3030/`;
+let host = `http://localhost:${socketPort}/`;
 
 const serverConnection = io.connect(host);
 
@@ -238,10 +238,20 @@ async function submitOrder(req, res) {
 async function confirmOrder(req, res) {
     const user = req.user;
     // const orderId = req.params.id;
+    let updateState = await orderTabel.update({
+        status: 'confirmed',
+    }, {
+        where: {
+            status: 'submitted',
+            isRecived: false,
+            user_id:user.id,
+        }
+    })
+
     let order = await orderTabel.findAll({
         where: {
             user_id: user.id,
-            status: 'submitted',
+            status: 'confirmed',
             isRecived: false,
         }
     });

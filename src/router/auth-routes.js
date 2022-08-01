@@ -23,7 +23,7 @@ async function handleSignup(req, res, next) {
       user: userRecord,
       token: userRecord.token
     };
-    if (userRecord) {
+    if (userRecord & userRecord.role==='user') {
       let newCart = await cart.create({
         user_id: userRecord.id,
 

@@ -48,6 +48,15 @@ socketio.on('connection', (socket) => {
     socket.on('recive-order', (user) => {
         console.log(`User ${user.username} has ID :${user.id} recived his Order `);
     });
+
+    socket.on("join_room", (room ,sender,reciver) => {
+    socket.join(room);
+    console.log(`User: ${sender.username} has joined room: ${room} with User : ${reciver.username}`);
+    });
+    
+    socket.on("send_message", (message,sender,reciver) => {
+        console.log(`${sender.username} send ${message.massage} to ${reciver.username}`);
+  });
 });
 
 
