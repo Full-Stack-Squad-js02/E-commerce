@@ -95,7 +95,9 @@ const createShipping = require("./shippingRoutes");
 
 const {
     joinConversation,
-    sendMessage
+    sendMessage,
+    getAllMassages,
+
 } = require("./meseging");
 
 
@@ -172,5 +174,6 @@ router.get('/shipping/:id', bearerAuth, createShipping);
 /*............... Create Empty Room ...................*/
 router.post('/joinroom/:id', bearerAuth, joinConversation);
 router.post('/sendmessage/:id', bearerAuth, sendMessage);
+router.post('/getallmassages/:id', bearerAuth, getAllMassages);
 
 module.exports = router;

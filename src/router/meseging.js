@@ -61,7 +61,16 @@ async function sendMessage(req, res) {
     //   };
 }
 
+async function getAllMassages(req, res) {
+    const userId = req.user_id;
+    const conversation = await massageTabel.findAll({
+        where: {
+            user_id: userId,
+        }
+    })
+}
 module.exports = {
     joinConversation,
-    sendMessage
+    sendMessage,
+    getAllMassages,
 };
