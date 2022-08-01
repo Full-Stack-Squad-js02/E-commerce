@@ -1,4 +1,7 @@
 'use strict';
+
+require('dotenv').config();
+const socketPort = process.env.SOCKET_PORT;
 const io = require('socket.io-client');
 let host = `http://localhost:3030/`;
 
@@ -245,22 +248,25 @@ async function confirmOrder(req, res) {
     let orderIds = order.map(order => {
         serverConnection.emit('confirm-order', order.id, user);
     })
-    res.send(order)
+    console.log('Confirmed Successfully');
+    res.send(order)//add status
 }
 
 async function reciveOrder(req, res) {
     const user = req.user;
     // const orderId = req.params.id;
     let order = await orderTabel.update({
-        isRecived:true,
+        isRecived: true,
+        status: 'recived',
     }, {
         where: {
             user_id: user.id,
-            status: 'submitted',//delivered
+            status: 'delivered',
             isRecived:false,
         }
     });
-    res.send(order)
+    console.log('Recived Successfully');
+    res.send(order)//add status
     // let orderIds = order.map(order => order.id)
     serverConnection.emit('recive-order', user);
 }
