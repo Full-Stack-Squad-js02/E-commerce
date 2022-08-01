@@ -60,10 +60,10 @@ async function handleSignIn(req, res, next) {
       token: req.user.token
     };
     if (user.token){
-     serverConnection.emit('connection', user
+      serverConnection.emit('welcome', user);
       // console.log('welcom ',);
       
-     );  
+     ;  
     }
     res.status(200).json(user);
   } catch (e) {

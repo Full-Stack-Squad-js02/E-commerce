@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 // const path = require('path');
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
+const ioServer = require('socket.io')(port)
 const cors = require('cors');
 const morgan = require('morgan');
 const router = require('./router/routes');
@@ -15,8 +15,9 @@ const logger = require("./middlewares/logger");
 
 
 app.use(express.json());
+
 const server = http.createServer(app);
-const io = socketio(server);
+const sooqServer= ioServer.of(server);
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,7 +28,7 @@ app.use(morgan('dev'));
 
 
 // start connection with socket 
-server.on('connection', (socket) => {
+ioServer.on('connection', (socket) => {
     console.log('Server connected to socketio server ', socket.id);
     console.log("ssssssssssssssssssss",socket);
     
