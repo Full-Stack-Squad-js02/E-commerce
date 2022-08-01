@@ -1,15 +1,6 @@
 'use strict';
 const {
-  users,
-  product,
-  order,
-  cart,
   rating,
-  catagory,
-  type,
-  massage,
-  wishlist,
-  shipping,
 } = require('../models/index-model');
 
 

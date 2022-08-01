@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const dataModules = require('../models/data-collection');
+// const dataModules = require('../models/data-collection');
 const basicAuth = require('../middlewares/basic');
 const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');
@@ -96,7 +96,11 @@ const createShipping = require("./shippingRoutes");
 const {
     joinConversation,
     sendMessage,
+
     getAllMassages,
+
+
+    getMessgesBetweenUsers
 
 } = require("./meseging");
 
@@ -174,6 +178,11 @@ router.get('/shipping/:id', bearerAuth, createShipping);
 /*............... Create Empty Room ...................*/
 router.post('/joinroom/:id', bearerAuth, joinConversation);
 router.post('/sendmessage/:id', bearerAuth, sendMessage);
+
 router.post('/getallmassages/:id', bearerAuth, getAllMassages);
+
+router.get('/allmessages/:id', bearerAuth, getMessgesBetweenUsers);
+
+
 
 module.exports = router;
