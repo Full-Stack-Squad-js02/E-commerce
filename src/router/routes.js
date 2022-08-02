@@ -27,7 +27,8 @@ const {
     getAllConfirmedOrderByAdmin,
     confirmOrdersByAdmin,
     getCatagoryAdmin,
-    getTypesAdmin
+    getTypesAdmin,
+    getAllTypesInCategoryAdmin
 } = require('./adminRoutes');
 
 const {
@@ -120,13 +121,14 @@ router.post('/signin', basicAuth, handleSignIn);
 router.get('/admin/users', bearerAuth, getUsersAdmin);
 router.get('/admin/product', bearerAuth, getProductAdmin);
 router.get('/admin/confirmedorder', bearerAuth, getAllConfirmedOrderByAdmin);
+router.get('/admin/catagory', bearerAuth, getCatagoryAdmin);
+router.get('/admin/type', bearerAuth, getTypesAdmin);
+router.get('/admin/typesof', bearerAuth, getAllTypesInCategoryAdmin);
 router.post('/admin/catagory', bearerAuth, createCatagory);
 router.post('/admin/type', bearerAuth, createType);
 router.put('/admin/confirmorders', bearerAuth, confirmOrdersByAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
-router.get('/admin/catagory', bearerAuth, getCatagoryAdmin);
-router.get('/admin/type', bearerAuth, getTypesAdmin);
 
 
 /*..................Product ROUTES......................*/
