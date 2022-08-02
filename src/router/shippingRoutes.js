@@ -8,5 +8,6 @@ async function createShipping(req, res) {
     let newRecord = await shipping.create(obj);
     res.status(201).json(newRecord);
 }
-
+//************Check it****************//
+ 
 module.exports = createShipping; 

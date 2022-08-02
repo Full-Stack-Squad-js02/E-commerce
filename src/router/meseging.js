@@ -5,19 +5,10 @@ const socketPort = process.env.SOCKET_PORT;
 const io = require('socket.io-client');
 let host = `http://localhost:${socketPort}/`;
 
-
 const serverConnection = io.connect(host);
 
 const {
-    productTabel,
-    orderTabel,
-    cartTabel,
-    ratingTabel,
-    catagoryTabel,
-    typeTabel,
     massageTabel,
-    wishlistTabel,
-    shippingTabel,
     userTabel
 } = require('../models/index-model');
 
@@ -51,17 +42,44 @@ async function sendMessage(req, res) {
     let storedMessage = await massageTabel.create({
         message: obj.message,
         reciver_id: reciverId,
-        user_id:sender.id
-    })// sender and rec id edit model
+        user_id: sender.id
+    }) // sender and rec id edit model
     //   const joinRoom = () => {
     // if (username !== "" && room !== "") {
-    serverConnection.emit("send_message",storedMessage,sender,reciver);
+    serverConnection.emit("send_message", storedMessage, sender, reciver);
     res.status(201).json(storedMessage)
     // }
     //   };
 }
 
+
+async function getAllMessages(req, res) {
+    const userId = req.user_id;
+    const conversation = await massageTabel.findAll({
+        where: {
+            user_id: userId,
+        }
+    })
+}
+
+async function getMessgesBetweenUsers(req, res) {
+    const reciverId = req.params.id;
+    const userId = req.user.id;
+    const converstaion = await massageTabel.findAll({
+        where: {
+            user_id: userId,
+            reciver_id: reciverId,
+        }
+    })
+    res.status(200).json(converstaion);
+
+}
+}
+
 module.exports = {
     joinConversation,
-    sendMessage
+    sendMessage,
+    getAllMessages,
+    getMessgesBetweenUsers
+
 };
