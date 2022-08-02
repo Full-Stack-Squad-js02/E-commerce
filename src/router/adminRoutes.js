@@ -165,7 +165,7 @@ async function confirmOrdersByAdmin(req, res) {
         });
         if (allOrders) {
             let updateState = await orderTabel.update({
-                status: 'delivered',
+                status: 'indelivery',
             }, {
                 where: {
                     status: 'confirmed',
