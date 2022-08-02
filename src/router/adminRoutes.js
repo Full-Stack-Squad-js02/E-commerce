@@ -108,7 +108,7 @@ async function createCatagory(req, res) {
 async function createType(req, res) {
     if (req.user.role == "admin") {
         let catagory = req.query.catagory;
-        let typeName = req.body;
+        let type = req.body;
         let foundCatagory = await catagoryTabel.findOne({
             where: {
                 name: catagory
@@ -116,7 +116,7 @@ async function createType(req, res) {
         })
         if (foundCatagory) {
             let newType = await typeTabel.create({
-                name:typeName,
+                name:type.name,
                 catagory_id:foundCatagory.id,
             })
             // console.log("2222222222222222",foundCatagory)
@@ -126,7 +126,7 @@ async function createType(req, res) {
                 name: catagory
             })
             let newType = await typeTabel.create({
-                name:typeName,
+                name:type.name,
                 catagory_id:newCatagory.id,
             })
             // console.log("1111111111111111",newCatagory);
@@ -165,7 +165,7 @@ async function confirmOrdersByAdmin(req, res) {
         });
         if (allOrders) {
             let updateState = await orderTabel.update({
-                status: 'delivered',
+                status: 'indelivery',
             }, {
                 where: {
                     status: 'confirmed',
