@@ -101,7 +101,6 @@ async function createCatagory(req, res) {
     } else {
         res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
-
 }
 
 
@@ -136,8 +135,8 @@ async function createType(req, res) {
     } else {
         res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
-
 }
+
 //Get All catagory
 async function getCatagoryAdmin(req, res, next) {
     if (req.user.role == "admin") {
@@ -152,11 +151,35 @@ async function getCatagoryAdmin(req, res, next) {
         res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 }
+
 //Get All types
 async function getTypesAdmin(req, res, next) {
     if (req.user.role == "admin") {
         try {
             const typeRecords = await typeTabel.findAll({});
+            const list = typeRecords.map(type => type);
+            res.status(200).json(list);
+        } catch (e) {
+            next(e.message);
+        }
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
+}
+
+//Get All Types Related to Catagory
+async function getAllTypesInCategoryAdmin(req, res, next) {
+    let category = req.query.category;
+    if (req.user.role == "admin") {
+        try {
+            const foundCategory=await catagoryTabel.findOne({
+                where: {
+                name:category
+            }});
+            const typeRecords = await typeTabel.findAll({
+                where: {
+                catagory_id:foundCategory.id,
+            }});
             const list = typeRecords.map(type => type);
             res.status(200).json(list);
         } catch (e) {
@@ -225,5 +248,6 @@ module.exports = {
     getAllConfirmedOrderByAdmin,
     confirmOrdersByAdmin,
     getCatagoryAdmin,
-    getTypesAdmin
+    getTypesAdmin,
+    getAllTypesInCategoryAdmin
 };
