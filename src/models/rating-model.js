@@ -2,10 +2,10 @@
 
 const ratingModel = (sequelize, DataTypes) =>
     sequelize.define('ratings', {
-        name: {
-            type: DataTypes.STRING,
-            required: true
-        },
+        // name: {
+        //     type: DataTypes.STRING,
+        //     required: true
+        // },
         description: {
             type: DataTypes.STRING,
             required: true
