@@ -59,7 +59,7 @@ socketio.on('connection', (socket) => {
 
     socket.on('delivered-order', (allOrders) => {
         allOrders.forEach(order => {
-            console.log(`Order/s related to user ID :${order.user_id} has been delivered`);
+            console.log(`Order/s related to user ID :${order.user_id} indelivery`);
         })
         //delete confirm orders
     });
