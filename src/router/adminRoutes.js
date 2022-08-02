@@ -105,31 +105,31 @@ async function createCatagory(req, res) {
 
 
 // add New Type Under Catagory 
-
 async function createType(req, res) {
     if (req.user.role == "admin") {
-        let catagory = req.query.catagory
-        let obj = req.body;
+        let catagory = req.query.catagory;
+        let typeName = req.body;
         let foundCatagory = await catagoryTabel.findOne({
             where: {
                 name: catagory
             }
         })
         if (foundCatagory) {
-            let newType = await typeTabel.create(obj)
-            newType.catagory_id = foundCatagory.id
-            foundCatagory.type_id = newType.id
+            let newType = await typeTabel.create({
+                name:typeName,
+                catagory_id:foundCatagory.id,
+            })
             // console.log("2222222222222222",foundCatagory)
             res.status(201).json(newType);
         } else {
             let newCatagory = await catagoryTabel.create({
                 name: catagory
             })
-            let newType = await typeTabel.create(obj)
-            newType.catagory_id = newCatagory.id
-            newCatagory.type_id = newType.id
+            let newType = await typeTabel.create({
+                name:typeName,
+                catagory_id:newCatagory.id,
+            })
             // console.log("1111111111111111",newCatagory);
-
             res.status(201).json(newType);
         }
     } else {

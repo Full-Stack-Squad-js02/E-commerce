@@ -53,34 +53,32 @@ async function sendMessage(req, res) {
 }
 
 
-async function getAllMassages(req, res) {
+async function getAllMessages(req, res) {
     const userId = req.user_id;
     const conversation = await massageTabel.findAll({
         where: {
             user_id: userId,
         }
     })
+}
 
 async function getMessgesBetweenUsers(req, res) {
     const reciverId = req.params.id;
-    const userId = req.user.id
+    const userId = req.user.id;
     const converstaion = await massageTabel.findAll({
         where: {
             user_id: userId,
-            reciver_id: reciverId
+            reciver_id: reciverId,
         }
     })
-
     res.status(200).json(converstaion);
 
 }
-}
+
 module.exports = {
     joinConversation,
     sendMessage,
-
-    getAllMassages,
-
+    getAllMessages,
     getMessgesBetweenUsers
 
 }

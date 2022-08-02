@@ -68,7 +68,7 @@ socketio.on('connection', (socket) => {
         console.log(`User ${user.username} has ID :${user.id} recived his Order `);
     });
 
-    socket.on("join_room", (room ,sender,reciver) => {
+    socket.on("join_room", (room,sender,reciver) => {
     socket.join(room);
     console.log(`User: ${sender.username} has joined room: ${room} with User : ${reciver.username}`);
     });
