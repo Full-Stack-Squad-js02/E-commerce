@@ -26,6 +26,8 @@ const {
     createType,
     getAllConfirmedOrderByAdmin,
     confirmOrdersByAdmin,
+    getCatagoryAdmin,
+    getTypesAdmin
 } = require('./adminRoutes');
 
 const {
@@ -123,6 +125,9 @@ router.post('/admin/type', bearerAuth, createType);
 router.put('/admin/confirmorders', bearerAuth, confirmOrdersByAdmin);
 router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
 router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
+router.get('/admin/catagory', bearerAuth, getCatagoryAdmin);
+router.get('/admin/type', bearerAuth, getTypesAdmin);
+
 
 /*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
