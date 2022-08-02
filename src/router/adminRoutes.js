@@ -14,6 +14,7 @@ const {
     orderTabel,
     catagoryTabel,
     typeTabel,
+    type,
 } = require("../models/index-model");
 
 
@@ -137,6 +138,37 @@ async function createType(req, res) {
     }
 
 }
+//Get All catagory
+async function getCatagoryAdmin(req, res, next) {
+    if (req.user.role == "admin") {
+        try {
+            const catagoryRecords = await catagoryTabel.findAll({});
+            const list = catagoryRecords.map(catagory => catagory);
+            res.status(200).json(list);
+        } catch (e) {
+            next(e.message);
+        }
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
+}
+//Get All types
+async function getTypesAdmin(req, res, next) {
+    if (req.user.role == "admin") {
+        try {
+            const typeRecords = await typeTabel.findAll({});
+            const list = typeRecords.map(type => type);
+            res.status(200).json(list);
+        } catch (e) {
+            next(e.message);
+        }
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
+}
+
+
+
 
 /*..........Shipping.......*/
 async function getAllConfirmedOrderByAdmin(req, res) {
@@ -192,4 +224,6 @@ module.exports = {
     createType,
     getAllConfirmedOrderByAdmin,
     confirmOrdersByAdmin,
+    getCatagoryAdmin,
+    getTypesAdmin
 };
