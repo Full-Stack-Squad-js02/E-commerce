@@ -74,6 +74,7 @@ async function getMessgesBetweenUsers(req, res) {
     res.status(200).json(converstaion);
 
 }
+}
 module.exports = {
     joinConversation,
     sendMessage,
@@ -82,4 +83,4 @@ module.exports = {
 
     getMessgesBetweenUsers
 
-};
+}
