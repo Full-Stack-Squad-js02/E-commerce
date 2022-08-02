@@ -36,7 +36,7 @@ Two : search for some product for specific Category and specific Price
 */
 
 async function searchCategory(req, res) {
-  const category_id = req.params.category_id;
+  const category_id = req.params.category;
   let allProducts = await product.searchByCategory(category_id);
   res.status(200).json(allProducts);
 }
