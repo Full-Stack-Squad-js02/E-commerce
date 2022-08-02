@@ -13,8 +13,10 @@ const logger = require("./middlewares/logger");
 
 
 // const path = require('path');
+//const io = require('socket.io-client');
 // const http = require('http');
 const socketio = require('socket.io')(socketPort);
+
 
 
 app.use(express.json());
@@ -75,6 +77,7 @@ socketio.on('connection', (socket) => {
     
     socket.on("send_message", (message,sender,reciver) => {
         console.log(`${sender.username} send ${message.massage} to ${reciver.username}`);
+        //io.emit('recive-message',message,sender);
   });
 });
 
