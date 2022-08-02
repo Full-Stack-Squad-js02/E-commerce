@@ -37,6 +37,10 @@ const productModel = (sequelize, DataTypes) =>
             type: DataTypes.INTEGER,
             // required: true
         },
+        type_id: {
+            type: DataTypes.INTEGER,
+            // required: true
+        },
         wishlist_id: {
             type: DataTypes.INTEGER,
         },
