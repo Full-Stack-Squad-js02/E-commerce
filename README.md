@@ -105,7 +105,6 @@
 
 - As a user, I would like to see all messages between me and the other user.
 
-
 ## Dependencies Used
 
     "base-64": "^1.0.0",
