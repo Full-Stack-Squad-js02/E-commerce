@@ -15,7 +15,7 @@ const logger = require("./middlewares/logger");
 // const path = require('path');
 //const io = require('socket.io-client');
 // const http = require('http');
-const socketio = require('socket.io')(socketPort);
+const socketIo = require('socket.io')(socketPort);
 
 
 
@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 //app.use(express.static(path.join(__dirname, 'public')));
 
 // const server = http.createServer(app);
-// const io = socketio(socketio);
+// const io = socketIo(socketIo);
 
 // const confirmedOrders = {
 //     order: {
@@ -45,8 +45,8 @@ app.use(morgan('dev'));
 // }
 
 // start connection with socket 
-socketio.on('connection', (socket) => {
-    console.log('Server connected to socketio server ', socket.id);
+socketIo.on('connection', (socket) => {
+    console.log('Server connected to socketIo server ', socket.id);
 
     socket.on('signin', (payload) => {
         console.log(`${payload.user.username} is Logged In `);

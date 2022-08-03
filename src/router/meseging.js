@@ -7,6 +7,8 @@ let host = `http://localhost:${socketPort}/`;
 
 const serverConnection = io.connect(host);
 
+const { Op } = require('sequelize');
+
 const {
     massageTabel,
     userTabel
@@ -54,12 +56,13 @@ async function sendMessage(req, res) {
 
 
 async function getAllMessages(req, res) {
-    const userId = req.user_id;
+    const userId = req.user.id;
     const conversation = await massageTabel.findAll({
         where: {
             user_id: userId,
         }
     })
+    res.status(200).json(conversation);
 }
 
 async function getMessgesBetweenUsers(req, res) {
@@ -67,8 +70,8 @@ async function getMessgesBetweenUsers(req, res) {
     const userId = req.user.id;
     const converstaion = await massageTabel.findAll({
         where: {
-            user_id: userId,
-            reciver_id: reciverId,
+            [Op.or]: [{ user_id: userId }, { user_id: reciverId }],
+            [Op.or]: [{reciver_id:userId} , {reciver_id:reciverId}],
         }
     })
     res.status(200).json(converstaion);
