@@ -60,6 +60,7 @@ async function getAllMessages(req, res) {
             user_id: userId,
         }
     })
+    res.status(200).json(converstaion);
 }
 
 async function getMessgesBetweenUsers(req, res) {
