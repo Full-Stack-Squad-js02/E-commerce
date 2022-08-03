@@ -37,31 +37,72 @@
 
 ## Admin Dashboard
 
-- As an admin user, I would like to have a dashboard where I can see a list of product categories
+- As an admin, I would like to know the information for all users in Sooqna website.
 
-- As an admin , I would like to view a detail page for each category so that I can eventually edit its data or delete it
+- As an admin , I would like to delete any user that sale an illegal product.
 
-- As an admin , I would like to see a list of the products assigned to a category on the category details page
+- As an admin , I would like to see a detail for each product so that I can eventually delete it.
 
-- As an admin , I would like a detail page for each product so that I can eventually edit its data or delete it
+- As an admin ,I would like to have a dashboard where I can see a list of product categories.
 
-- As an admin I would like add and save a new category so that I can expand my product lines
+- As an admin, I would like add and save a new category so that I can expand my product lines.
 
-- As an admin I would like to have a dashboard where I can see a list of the users.
+- As an admin , I would like to see a list types of the products assigned to a category.
+
+- As an admin, I would like add and save a new type for a new category so that I can expand my product lines.
+
+- As an admin, I would like to see all confirmed orders by users to approve it and sent to user using delivery shipping.
+
 
 ## User Site
 
-• As a user, I would like to join a room with anther user.
-• As a user, I would like to send a message to anther user him.
-• As a user, I would like to see all messages between me and the other user.
-• As a user, I would like to rate any product.
-• As a user, I would like to see all ratings for a specific product.
-• As a user, I would like to view my profile.
-• As a user, I would like to update my profile.
-• As a user, I would like to delete my profile.
-• As a user, I would like to add products to my cart / wish list.
-• As a user, I would like to add products from my wish list to cart.
-• As a user, I would like to submit / confirm /receive my order/s.
+- As a user, I would like to register for an account on the Sooqna wibsite, so that I can make purchases.
+
+- As a user, I would like to securely login to my account so that I can add my products.
+
+- As a user, I would like to see products available for sale so that I can browse through the inventory for purchase.
+
+- As a user, I would like to add a new items to sell it.
+
+- As a user, I would like to update and delete any product that I added to sell.
+
+- As a user, I would like the ability to view my desired purchases while browsing the other products on the site.
+
+- As a user, I would like to search for all products related to specific user.
+
+- As a user, I would like to search for all products related to specific category.
+
+- As a user, I would like to search about all products for specific name or color so that I can choose which product that I want to buy it.
+
+- As a user, I would like to search about all products that have specific price so that I can buy.
+
+- As a user, I would like to see all products in my cart or wishlist.
+
+- As a user, I would like to delete any products in my cart or wishlist.
+
+- As a user, I would like to delete all products in my cart or wishlist.
+
+- As a user, I would like to add products to my cart / wish list.
+
+- As a user, I would like to add products from my wish list to cart.
+
+- As a user, I would like to submit / confirm /receive my order/s.
+
+- As a user, I would like to view my profile.
+
+- As a user, I would like to update my profile.
+
+- As a user, I would like to delete my profile.
+
+- As a user, I would like to rate any product.
+
+- As a user, I would like to see all ratings for a specific product.
+
+- As a user, I would like to join a room with anther user.
+
+- As a user, I would like to send a message to another user him.
+
+- As a user, I would like to see all messages between me and the other user.
 
 
 ## Dependencies Used
@@ -184,6 +225,7 @@ npm start
 
 
 <br>
+
 
 ## Cart ROUTES
 
@@ -326,7 +368,6 @@ MIT
 ## Database Schema Diagram
 
 ![](./assests/DB-Diagram.png)
-
 
 ## [Team Agreement](./Team-Agreement.md)
 
