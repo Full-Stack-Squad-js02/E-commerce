@@ -54,7 +54,7 @@ async function sendMessage(req, res) {
 
 
 async function getAllMessages(req, res) {
-    const userId = req.user_id;
+    const userId = req.user.id;
     const conversation = await massageTabel.findAll({
         where: {
             user_id: userId,
