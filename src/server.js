@@ -15,7 +15,7 @@ const logger = require("./middlewares/logger");
 // const path = require('path');
 //const io = require('socket.io-client');
 // const http = require('http');
-const socketio = require('socket.io')(socketPort);
+const socketIo = require('socket.io')(socketPort);
 
 
 
