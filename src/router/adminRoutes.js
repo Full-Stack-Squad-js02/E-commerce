@@ -192,7 +192,6 @@ async function getAllTypesInCategoryAdmin(req, res, next) {
 
 
 
-
 /*..........Shipping.......*/
 async function getAllConfirmedOrderByAdmin(req, res) {
     let user = req.user;
