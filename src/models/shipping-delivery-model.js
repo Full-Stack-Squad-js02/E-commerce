@@ -18,9 +18,9 @@ const shippingDeliveryModel = (sequelize, DataTypes) =>
             type: DataTypes.INTEGER,
         },
         // foreign key
-        // user_id: {
-        //     type: DataTypes.INTEGER,
-        // },
+        user_id: {
+            type: DataTypes.INTEGER,
+        },
         order_id: {
             type: DataTypes.INTEGER,
         },
