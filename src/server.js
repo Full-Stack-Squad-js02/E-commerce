@@ -15,7 +15,8 @@ const logger = require("./middlewares/logger");
 // const path = require('path');
 //const io = require('socket.io-client');
 // const http = require('http');
-const socketIo = require('socket.io')(socketPort);
+const socketio = require('socket.io')(socketPort);
+
 
 
 app.use(express.json());
@@ -60,7 +61,7 @@ socketIo.on('connection', (socket) => {
 
     socket.on('delivered-order', (allOrders) => {
         allOrders.forEach(order => {
-            console.log(`Order/s related to user ID :${order.user_id} has been delivered`);
+            console.log(`Order/s related to user ID :${order.user_id} indelivery`);
         })
         //delete confirm orders
     });
