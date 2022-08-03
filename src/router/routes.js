@@ -114,8 +114,8 @@ const {
 /*..................AUTH ROUTES......................*/
 router.get('/', homePage);
 router.post('/signup', handleSignup);
-router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignIn);
+router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 
 /*..................Admin ROUTES......................*/
 router.get('/admin/users', bearerAuth, getUsersAdmin);
@@ -132,29 +132,29 @@ router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 
 /*..................Product ROUTES......................*/
-router.post('/product', bearerAuth, createProduct);
 router.get('/product', bearerAuth, getAllProducts);
 router.get('/product/:id', bearerAuth, getOneProduct);
+router.post('/product', bearerAuth, createProduct);
 router.put('/product/:id', bearerAuth, updateProduct);
 router.delete('/product/:id', bearerAuth, deleteOneProduct);
 router.delete('/product', bearerAuth, deleteAllProduct);
 
 /*..................Order ROUTES......................*/
-router.post('/order', bearerAuth, CreateOrder);
 router.get('/order', bearerAuth, getAllOrder);
+router.post('/order', bearerAuth, CreateOrder);
 router.put('/order/:id', bearerAuth, UpdateOrder);
 router.delete('/order/:id', bearerAuth, deleteOneOrder);
 router.delete('/order', bearerAuth, deleteAllOrder);
 
 /*..................Wishlist ROUTES......................*/
-router.post('/wishlist', bearerAuth, createWishlist); //need to cancel it
 router.get('/wishlist', bearerAuth, getAllWishlist); //Edit to bring all products
+router.post('/wishlist', bearerAuth, createWishlist); //need to cancel it
 router.delete('/wishlist/:id', bearerAuth, deleteOneWishlist); // Edit to delet one product
 router.delete('/wishlist', bearerAuth, deleteAllWishlist); // Edit to delet all product
 
 /*..................Cart ROUTES......................*/
-router.post('/cart', bearerAuth, createCart);
 router.get('/cart', bearerAuth, getAllCart);
+router.post('/cart', bearerAuth, createCart);
 router.delete('/cart/:id', bearerAuth, deleteOneCart); //make to delete one product from cart not from source
 router.delete('/cart', bearerAuth, deleteAllCart);
 
