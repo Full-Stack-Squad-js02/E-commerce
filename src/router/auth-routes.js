@@ -14,7 +14,7 @@ const {
 } = require('../models/index-model');
 
 function homePage(req, res) {
-  res.status(200).send('SOOQNA E-COMMERCE');
+  res.status(200).send("Sooqna E-commerce isn't the cherry on the cake, it's the new cake");
 }
 
 /*......................Auth......................*/
