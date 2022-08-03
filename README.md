@@ -47,23 +47,18 @@
 
 ## User Site
 
-- As a user, I would like to see products available for sale so that I can browse through the inventory for purchase.
+• As a user, I would like to join a room with anther user.
+• As a user, I would like to send a message to anther user him.
+• As a user, I would like to see all messages between me and the other user.
+• As a user, I would like to rate any product.
+• As a user, I would like to see all ratings for a specific product.
+• As a user, I would like to view my profile.
+• As a user, I would like to update my profile.
+• As a user, I would like to delete my profile.
+• As a user, I would like to add products to my cart / wish list.
+• As a user, I would like to add products from my wish list to cart.
+• As a user, I would like to submit / confirm /receive my order/s.
 
-- As a user, I would like to register for an account on the site, so that I can make purchases.
-
-- As a user, I would like to securely login to my account so that I can add products to my shopping cart.
-
-- As a user, I would like a way to store the items I wish to purchase in a cart within the application.
-
-- As a user, I would like the ability to view my desired purchases while browsing the other products on the site.
-
-- As a user I would like a dedicated page where I can view all the products I wish to purpose all in one location.
-
-- As a user I would like to add a new items to sell it.
-
-- As a user I would like to update and delete any product I added to sell.
-
-- As a user I would like to check my sales, status, and profit.
 
 ## Domain Modeling
 
