@@ -2,17 +2,14 @@
 
 const express = require('express');
 const router = express.Router();
-const dataModules = require('../models/data-collection');
+// const dataModules = require('../models/data-collection');
 const basicAuth = require('../middlewares/basic');
 const bearerAuth = require('../middlewares/bearer');
 const permissions = require('../middlewares/acl');
 
-const addRating = require('./rating-route');
-
-
 
 const {
-
+    // AUTH Functions :
     handleSignup,
     handleGetUsers,
     handleSignIn,
@@ -32,14 +29,6 @@ const {
 } = require('./adminRoutes');
 
 const {
-    // Search Functions :
-    searchForUser,
-    searchForTitleName,
-    searchForPriceOfProduct,
-    searchForProductColor,
-} = require('./search-routes');
-
-const {
     // Products Functions :
     getAllProducts,
     createProduct,
@@ -50,7 +39,7 @@ const {
 } = require('./products-routes');
 
 const {
-    // Orders Functions:
+    // Orders Functions :
     getAllOrder,
     CreateOrder,
     UpdateOrder,
@@ -59,7 +48,7 @@ const {
 } = require('./order-routes');
 
 const {
-    // Wishlist Functions:
+    // Wishlist Functions :
     getAllWishlist,
     createWishlist,
     deleteOneWishlist,
@@ -67,15 +56,24 @@ const {
 } = require('./wishList-routes');
 
 const {
-    //  Cart Functions: 
+    //  Cart Functions : 
     getAllCart,
     createCart,
     deleteOneCart,
     deleteAllCart,
 } = require('./cart-routes');
 
+const {
+    // Search Functions :
+    searchForUser,
+    searchForTitleName,
+    searchForPriceOfProduct,
+    searchForProductColor,
+    searchCategory,
+} = require('./search-routes');
 
 const {
+    //Shopping Functions :
     addProductToCart,
     addProductToWishList,
     addProductFromWishListToCart,
@@ -85,7 +83,7 @@ const {
 } = require('./shop-route-functios');
 
 const {
-    // Sitting Functions for User himself :
+    // Setting Functions for User profile :
     userInfo,
     updateUserProfile,
     deleteUserProfile,
@@ -94,8 +92,18 @@ const {
 const createShipping = require("./shippingRoutes");
 
 const {
+    //Rating Functions :
+    addRating,
+    getRating
+} = require('./rating-route');
+
+const {
+    // Messageing Functions :
     joinConversation,
-    sendMessage
+    sendMessage,
+    getMessgesBetweenUsers,
+    getAllMessages,
+
 } = require("./meseging");
 
 
@@ -105,6 +113,16 @@ router.get('/', homePage);
 router.post('/signup', handleSignup);
 router.get('/users', bearerAuth, permissions('delete'), handleGetUsers);
 router.post('/signin', basicAuth, handleSignIn);
+
+/*..................Admin ROUTES......................*/
+router.get('/admin/users', bearerAuth, getUsersAdmin);
+router.get('/admin/product', bearerAuth, getProductAdmin);
+router.get('/admin/confirmedorder', bearerAuth, getAllConfirmedOrderByAdmin);
+router.post('/admin/catagory', bearerAuth, createCatagory);
+router.post('/admin/type', bearerAuth, createType);
+router.put('/admin/confirmorders', bearerAuth, confirmOrdersByAdmin);
+router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
+router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 /*..................Product ROUTES......................*/
 router.post('/product', bearerAuth, createProduct);
@@ -133,21 +151,13 @@ router.get('/cart', bearerAuth, getAllCart);
 router.delete('/cart/:id', bearerAuth, deleteOneCart); //make to delete one product from cart not from source
 router.delete('/cart', bearerAuth, deleteAllCart);
 
-/*..................Admin ROUTES......................*/
-router.get('/admin/users', bearerAuth, getUsersAdmin);
-router.get('/admin/product', bearerAuth, getProductAdmin);
-router.get('/admin/confirmedorder', bearerAuth, getAllConfirmedOrderByAdmin);
-router.post('/admin/catagory', bearerAuth, createCatagory);
-router.post('/admin', bearerAuth, createType);
-router.put('/admin/confirmorders', bearerAuth, confirmOrdersByAdmin);
-router.delete('/admin/deleteuser/:id', bearerAuth, deleteUser);
-router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 /*..................Search ROUTES......................*/
 router.get('/searchid', bearerAuth, searchForUser);
 router.get('/searchname', bearerAuth, searchForTitleName);
 router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
 router.get('/searchcolor', bearerAuth, searchForProductColor);
+router.get('/searchcategory', bearerAuth, searchCategory);
 
 /*..................Shop ROUTES......................*/
 router.post('/addtocart/:id', bearerAuth, addProductToCart);
@@ -157,20 +167,24 @@ router.post('/submitorder', bearerAuth, submitOrder);
 router.put('/confirmorder', bearerAuth, confirmOrder);
 router.put('/reciveorder', bearerAuth, reciveOrder);
 
-/*..................User Setting......................*/
+/*..................User Setting ROUTES......................*/
 router.get('/userinfo', bearerAuth, userInfo); // we can handel it in frontend , we don't need this userInfo route
 router.put('/updateprofile', bearerAuth, updateUserProfile);
 router.delete('/deleteprofile', bearerAuth, deleteUserProfile);
 
 /*..................Rating ROUTES......................*/
+router.get('/rating/:id', bearerAuth, getRating);
 router.post('/rating/:id', bearerAuth, addRating);
 
-/*............... createShipping ...................*/
-router.get('/shipping/:id', bearerAuth, createShipping);
+/*............... Shipping ROUTES ...................*/
+router.post('/shipping/:id', bearerAuth, createShipping);
 
 
-/*............... Create Empty Room ...................*/
+/*............... Messages / Chat ROUTES...................*/
 router.post('/joinroom/:id', bearerAuth, joinConversation);
 router.post('/sendmessage/:id', bearerAuth, sendMessage);
+router.get('/allmessages/:id', bearerAuth, getMessgesBetweenUsers);
+router.get('/allmessages', bearerAuth, getAllMessages);
+
 
 module.exports = router;

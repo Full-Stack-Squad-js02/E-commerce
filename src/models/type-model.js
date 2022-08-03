@@ -5,5 +5,9 @@ const typeModel = (sequelize, DataTypes) =>
         name: {
             type: DataTypes.STRING,
         },
+        catagory_id: {
+            type: DataTypes.INTEGER,
+            // required: true
+        },
     });
 module.exports = typeModel;
