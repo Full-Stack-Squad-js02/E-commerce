@@ -369,6 +369,8 @@ MIT
 
 ![](./assests/DB-Diagram.png)
 
+## [Demo](https://sooqna.herokuapp.com/)
+
 ## [Team Agreement](./Team-Agreement.md)
 
 # Resources :
