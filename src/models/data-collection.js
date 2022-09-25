@@ -12,6 +12,13 @@ class DataCollection {
             }
         });
     }
+    getCategory(name) {
+        return this.model.findOne({
+            where: {
+                name: name
+            }
+        });
+    }
 
     getAll(id) {
         return this.model.findAll({
