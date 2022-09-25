@@ -1,6 +1,6 @@
 'use strict';
 
-const { product } = require('../models/index-model');
+const { product , catagory} = require('../models/index-model');
 
 // Search for all products for specific user 
 async function searchForUser(req, res) {
@@ -36,8 +36,9 @@ Two : search for some product for specific Category and specific Price
 */
 
 async function searchCategory(req, res) {
-  const category_id = req.query.category;
-  let allProducts = await product.searchByCategory(category_id);
+    const name = req.query.category;
+    let catagories = await catagory.getCategory(name);
+  let allProducts = await product.searchByCategory(catagories.id);
   res.status(200).json(allProducts);
 }
 

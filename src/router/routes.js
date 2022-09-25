@@ -132,7 +132,7 @@ router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 
 /*..................Product ROUTES......................*/
-router.get('/product', bearerAuth, getAllProducts);
+router.get('/product',  getAllProducts);
 router.get('/product/:id', bearerAuth, getOneProduct);
 router.post('/product', bearerAuth, createProduct);
 router.put('/product/:id', bearerAuth, updateProduct);
@@ -160,11 +160,11 @@ router.delete('/cart', bearerAuth, deleteAllCart);
 
 
 /*..................Search ROUTES......................*/
-router.get('/searchid', bearerAuth, searchForUser);
-router.get('/searchname', bearerAuth, searchForTitleName);
-router.get('/searchprice', bearerAuth, searchForPriceOfProduct);
-router.get('/searchcolor', bearerAuth, searchForProductColor);
-router.get('/searchcategory', bearerAuth, searchCategory);
+router.get('/searchid',searchForUser);
+router.get('/searchname',searchForTitleName);
+router.get('/searchprice',searchForPriceOfProduct);
+router.get('/searchcolor',searchForProductColor);
+router.get('/searchcategory',searchCategory);
 
 /*..................Shop ROUTES......................*/
 router.post('/addtocart/:id', bearerAuth, addProductToCart);

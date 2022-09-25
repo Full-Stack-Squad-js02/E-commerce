@@ -1,6 +1,6 @@
 'use strict';
 
-const { product } = require('../models/index-model');
+const { product , productTabel} = require('../models/index-model');
 
 // Create new product :
 async function createProduct(req, res) {
@@ -13,8 +13,8 @@ async function createProduct(req, res) {
 
 // Show all products to see it :
 async function getAllProducts(req, res) {
-    const id = req.user.id;
-    let allRecords = await product.getAll(id);
+    // const id = req.user.id;
+    let allRecords = await productTabel.findAll();
     res.status(200).json(allRecords);
 }
 
