@@ -12,6 +12,8 @@ const errorHandler = require("./error-handlers/500");
 const logger = require("./middlewares/logger");
 
 
+app.use(cors());
+app.use(morgan('dev'));
 // const path = require('path');
 //const io = require('socket.io-client');
 // const http = require('http');
@@ -22,8 +24,6 @@ const socketIo = require('socket.io')(socketPort);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
-app.use(morgan('dev'));
 
 //app.use(express.static(path.join(__dirname, 'public')));
 
