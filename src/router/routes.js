@@ -133,7 +133,7 @@ router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 /*..................Product ROUTES......................*/
 router.get('/product',  getAllProducts);
-router.get('/product/:id', bearerAuth, getOneProduct);
+router.get('/product/:id', getOneProduct);
 router.post('/product', bearerAuth, createProduct);
 router.put('/product/:id', bearerAuth, updateProduct);
 router.delete('/product/:id', bearerAuth, deleteOneProduct);
