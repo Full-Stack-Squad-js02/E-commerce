@@ -123,41 +123,46 @@ async function addProductToWishList(req, res) {
     });
 
     if (product) {
-        let wishlist = await wishlistTabel.findOne({
-            where: {
-                user_id: userId,
-            }
-        })
-        if (wishlist) {
-            if (!wishlist.product_id) {
-                let newProduct = await wishlistTabel.update({
-                    product_id,
-                }, {
-                    where: {
-                        user_id: userId,
-                    }
-                })
-                let originalProduct = await productTabel.findOne({
-                    where: {
-                        id: product_id,
-                    }
-                })
-                console.log('UUUUUUUUUu', newProduct);
-                res.status(201).json(originalProduct);;
-            } else {
-                let newProduct = await wishlistTabel.create({
+        let newProduct = await wishlistTabel.create({
                     product_id,
                     user_id: userId,
-                })
-                console.log(newProduct);
-                let originalProduct = await productTabel.findOne({
-                    where: {
-                        id: product_id,
-                    }
-                })
-                res.status(201).json(originalProduct);
-            }
-        }
+        })
+        
+        // let wishlist = await wishlistTabel.findOne({
+        //     where: {
+        //         user_id: userId,
+        //     }
+        // })
+        // if (wishlist) {
+        //     if (!wishlist.product_id) {
+        //         let newProduct = await wishlistTabel.update({
+        //             product_id,
+        //         }, {
+        //             where: {
+        //                 user_id: userId,
+        //             }
+        //         })
+        //         let originalProduct = await productTabel.findOne({
+        //             where: {
+        //                 id: product_id,
+        //             }
+        //         })
+        //         console.log('UUUUUUUUUu', newProduct);
+        //         res.status(201).json(originalProduct);;
+        //     } else {
+        //         let newProduct = await wishlistTabel.create({
+        //             product_id,
+        //             user_id: userId,
+        //         })
+        //         console.log(newProduct);
+        //         let originalProduct = await productTabel.findOne({
+        //             where: {
+        //                 id: product_id,
+        //             }
+        //         })
+                res.status(201).json(newProduct);
+        //     }
+        // }
     } else {
         console.log('Product is not avaliable');
         res.status(403).send('Product is not avaliable');

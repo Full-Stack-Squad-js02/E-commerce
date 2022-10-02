@@ -26,17 +26,17 @@ async function handleSignup(req, res, next) {
       user: userRecord,
       token: userRecord.token
     };
-    if (userRecord.role==='user') {
-      let newCart = await cart.create({
-        user_id: userRecord.id,
+    // if (userRecord.role==='user') {
+    //   let newCart = await cart.create({
+    //     user_id: userRecord.id,
 
-      });
-      console.log(newCart);
-      let newWishList = await wishlist.create({
-        user_id: userRecord.id,
-      });
-      console.log(newWishList);
-    }
+    //   });
+    //   console.log(newCart);
+    //   let newWishList = await wishlist.create({
+    //     user_id: userRecord.id,
+    //   });
+    //   console.log(newWishList);
+    // }
 
     res.status(201).json(output);
   } catch (e) {
