@@ -34,6 +34,7 @@ const {
 const {
     // Products Functions :
     getAllProducts,
+    getAllProductsForUser,
     createProduct,
     updateProduct,
     deleteOneProduct,
@@ -133,6 +134,7 @@ router.delete('/admin/deleteproduct/:id', bearerAuth, deleteOneProductByAdmin);
 
 /*..................Product ROUTES......................*/
 router.get('/product',  getAllProducts);
+router.get('/product/:userId', bearerAuth, getAllProductsForUser);
 router.get('/product/:id', getOneProduct);
 router.post('/product', bearerAuth, createProduct);
 router.put('/product/:id', bearerAuth, updateProduct);

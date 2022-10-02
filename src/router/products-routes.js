@@ -18,6 +18,18 @@ async function getAllProducts(req, res) {
     res.status(200).json(allRecords);
 }
 
+// Show all products posted by user to see it :
+async function getAllProductsForUser(req, res) {
+    const userId = req.user.id;
+    console.log('AAAAAAA',userId);
+    let allRecords = await productTabel.findAll({
+        where: {
+            user_id:userId
+        }
+    });
+    res.status(200).json(allRecords);
+}
+
 // get one product with details
 async function getOneProduct(req, res){
     const id = req.params.id;
@@ -65,6 +77,7 @@ async function deleteAllProduct(req, res) {
 module.exports = {
     // Products Functions:
     getAllProducts,
+    getAllProductsForUser,
     createProduct,
     updateProduct,
     deleteOneProduct,
