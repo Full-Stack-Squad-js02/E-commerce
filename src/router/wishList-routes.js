@@ -15,6 +15,7 @@ async function createWishlist(req, res) {
 async function getAllWishlist(req, res) {
     const id = req.user.id;
     let allRecords = await wishlist.getAll(id);
+    console.log('GGGGGG',allRecords)
     res.status(200).json(allRecords);
 }
 

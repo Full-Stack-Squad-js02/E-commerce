@@ -276,7 +276,7 @@ async function reciveOrder(req, res) {
     }, {
         where: {
             user_id: user.id,
-            status: 'delivered',
+            status: 'indelivery',
             isRecived:false,
         }
     });
