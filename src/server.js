@@ -14,15 +14,23 @@ const logger = require("./middlewares/logger");
 
 app.use(cors());
 app.use(morgan('dev'));
+
 // const path = require('path');
 //const io = require('socket.io-client');
 // const http = require('http');
+
 const socketIo = require('socket.io')(socketPort);
 
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// const socketIO = require('socket.io')(http, {
+//     cors: {
+//         origin: "http://localhost:3001"
+//     }
+// });
 
 
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -81,6 +89,7 @@ socketIo.on('connection', (socket) => {
   });
 });
 
+socketIo.listen(5000) 
 
 app.use(logger);
 
