@@ -213,7 +213,7 @@ async function getAllRecivedOrders(req, res) {
         let allOrders = await orderTabel.findAll({
             where: {
                 status: 'recived',
-                isRecived: false,
+                isRecived: true,
             }
         });
         res.status(200).json(allOrders);
