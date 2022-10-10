@@ -207,6 +207,20 @@ async function getAllConfirmedOrderByAdmin(req, res) {
         res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
     }
 }
+async function getAllRecivedOrders(req, res) {
+    let user = req.user;
+    if (user.role === 'admin') {
+        let allOrders = await orderTabel.findAll({
+            where: {
+                status: 'recived',
+                isRecived: false,
+            }
+        });
+        res.status(200).json(allOrders);
+    } else {
+        res.status(403).json("*** Access Denied *** JUST Admin Can reach to this page");
+    }
+}
 
 async function confirmOrdersByAdmin(req, res) {
     let user = req.user;
@@ -248,5 +262,6 @@ module.exports = {
     confirmOrdersByAdmin,
     getCatagoryAdmin,
     getTypesAdmin,
-    getAllTypesInCategoryAdmin
+    getAllTypesInCategoryAdmin,
+    getAllRecivedOrders
 };
